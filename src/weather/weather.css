@@ -1,0 +1,34 @@
+@font-face {
+    font-family: 'AvenirLT-Book';
+    src: url(./fonts/avenir-lt-book.otf);
+}
+
+.data-of-temp {
+    position: absolute;
+    top: 35%;
+    left: 30%;
+    clear: right;
+}
+
+.data-of-temp p {
+    clear: right;
+    margin: 0;
+    text-align: center;
+    color: #ffff1e;
+    font-family: 'AvenirLT-Book';
+    font-size: 80px;
+}
+
+.request-failed {
+    color: #ffff1e;
+    display: none;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+
+.refresh {
+    position: absolute;
+    top: 45%;
+    left: 45%;
+}
