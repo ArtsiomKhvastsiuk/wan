@@ -5,4 +5,5 @@ router.get('/news', (req, res) => {
     res.header("Content-Type", "application/json");
     res.send({text: 'ok'});
 });
+
 module.exports = router;

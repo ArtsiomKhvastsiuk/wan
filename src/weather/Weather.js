@@ -17,37 +17,44 @@ class Weather extends Component {
         }
     }
 
+    getCurrentPosition(cb) {
+        if (!navigator.geolocation) {
+            return;
+        }
+
+        navigator.geolocation.getCurrentPosition((position) => {
+            cb(null, position);
+        }, (error) => {
+            cb(error);
+        })
+    }
+
     componentWillMount() {
         const self = this;
-        $.getJSON('http://ip-api.com/json')
-            .done((data) => {
-                const http = new XMLHttpRequest();
-                const url = "http://api.wunderground.com/api/6d5cd374a1229785/conditions/q/" + data.countryCode + '/' + data.city + ".json";
-                http.open("GET", url, true);
-                http.onreadystatechange = function () {
-                    if (http.readyState === 4 && http.status === 200) {
-                        const responseText = http.responseText;
-                        const responseObject = JSON.parse(responseText);
-                        const reqFailed = document.getElementsByClassName('request-failed');
-                        reqFailed[0].style.display = 'none';
-                        self.setState({
-                            country: data.country,
-                            city: data.city,
-                            temp: responseObject.current_observation.temp_c,
-                            hasMounted: true,
-                            refresh: false
-                        });
-                    }
-                };
-                http.send();
-            })
-            .fail((xhr, textStatus,) => {
-                const reqFailed = document.getElementsByClassName('request-failed');
-                self.setState({
-                    errorText: "ERROR!"
-                });
-                reqFailed[0].style.display = 'block';
-            })
+        this.getCurrentPosition((error, result) => {
+            if (error) {
+                return;
+            }
+
+            const url = "http://api.wunderground.com/api/6d5cd374a1229785/conditions/q/" + result.coords.latitude + ',' + result.coords.longitude + ".json";
+            $.getJSON(url)
+                .done((data) => {
+                    self.setState({
+                        country: data.current_observation.display_location.state_name,
+                        city: data.current_observation.display_location.city,
+                        temp: data.current_observation.temp_c,
+                        hasMounted: true,
+                        refresh: false
+                    });
+                })
+                .fail((error) => {
+                    const reqFailed = document.getElementsByClassName('request-failed');
+                    self.setState({
+                        errorText: error
+                    });
+                    reqFailed[0].style.display = 'block';
+                })
+        });
     }
 
 
