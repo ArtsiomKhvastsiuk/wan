@@ -1,9 +1,12 @@
 const express = require('express');
-const router = express.Router();
+const passport = require('passport');
 
-router.get('/news', (req, res) => {
-    res.header("Content-Type", "application/json");
-    res.send({text: 'ok'});
-});
+const controller = require('../controllers/auth');
 
-module.exports = router;
+const api = express.Router();
+
+const requireLocal = passport.authenticate('local');
+
+api.post('/signup', controller.register);
+
+module.exports = api;

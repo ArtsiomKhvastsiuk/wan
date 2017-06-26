@@ -36,7 +36,7 @@ class Weather extends Component {
                 return;
             }
 
-            const url = "http://api.wunderground.com/api/6d5cd374a1229785/conditions/q/" + result.coords.latitude + ',' + result.coords.longitude + ".json";
+            const url = "https://api.wunderground.com/api/6d5cd374a1229785/conditions/q/" + result.coords.latitude + ',' + result.coords.longitude + ".json";
             $.getJSON(url)
                 .done((data) => {
                     self.setState({
