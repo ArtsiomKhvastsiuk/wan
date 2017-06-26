@@ -9,7 +9,7 @@ exports.register = function (req, res) {
         return res.status(400).json({error: "The required parameters are missing."});
     }
 
-    User.findOne({username}, null, {collation: {location: 'en', strength: 2}})
+    User.findOne({username}, null, {collation: {locale: 'en', strength: 2}})
         .then((existingUser) => {
             if (existingUser) {
                 return res.status(400).json({error: "This login already exists."});
