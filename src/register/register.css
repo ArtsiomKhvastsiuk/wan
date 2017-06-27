@@ -1,0 +1,62 @@
+.form {
+    width: 265px;
+    height: 310px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+label {
+    width: 240px;
+    display: block;
+    border-bottom: 1px solid #c3c3c3;
+}
+
+input {
+    width: 215px;
+    height: 40px;
+    border: 0px solid white;
+}
+
+
+:focus::-webkit-input-placeholder {color: #bcdae7}
+:focus::-moz-placeholder          {color: #bcdae7}
+:focus:-moz-placeholder           {color: #bcdae7}
+:focus:-ms-input-placeholder      {color: #bcdae7}
+
+input:focus {
+    outline: none;
+}
+
+.button {
+    width: 240px;
+    background-color: #1a62ec;
+    color: #fff;
+    border-radius: 50px;
+    box-shadow: 0 0 30px rgba(0, 146, 188, 0.25)
+}
+
+img {
+    margin-right: 9px;
+}
+
+.text {
+    color: #545454;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+p {
+    color: #444444;
+}
+
+.login {
+    text-transform: none;
+    padding-left: 3px;
+    color: #f4d503;
+    font-weight: bold;
+}
+

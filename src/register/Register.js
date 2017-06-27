@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import * as $ from 'jquery';
+import './register.css';
 
 class Register extends Component {
     constructor(props) {
@@ -10,6 +11,17 @@ class Register extends Component {
             email: true,
         };
     }
+
+    handleFocus(event) {
+        event.target.style.border = "0px";
+        const header = document.getElementsByTagName('header');
+        const children = header[0].children;
+        for (let i = 0; i < children.length; i++) {
+            if (event.target === children[i]) {
+                children[i].classList.add('active');
+            } else children[i].classList.remove('active');
+        }
+    };
 
     handleChange(inputName, event) {
         if (event.target.value.trim().length > 0) {
@@ -39,39 +51,40 @@ class Register extends Component {
             .fail((error) => {
                 console.log(error);
             })
-
     }
 
     render() {
-
         let username = this.state.username;
         let password = this.state.password;
         let email = this.state.email;
 
         return (
-            <section>
-                <img src=""/>
-                <p>Save your account now</p>
+            <section className="form">
+                <p className="text">Create your account now</p>
                 <form onSubmit={this.handleSubmit.bind(this)}>
                     <label>
+                        <img src={require("./img/login.png")} alt="login"/>
                         <input type="text" className="" placeholder="Login"
                                ref={(username) => this.username = username}
-                               onChange={this.handleChange.bind(this, 'username')}/>
-                    </label>
+                               onChange={this.handleChange.bind(this, 'username')}
+                                onFocus={this.handleFocus.bind(this)}/>
+                    </label><br/>
                     <label>
+                        <img src={require("./img/password.png")} alt="password"/>
                         <input type="text" className="" placeholder="Password"
                                ref={(password) => this.password = password}
                                onChange={this.handleChange.bind(this, 'password')}/>
-                    </label>
+                    </label><br/>
                     <label>
+                        <img src={require("./img/email.png")} alt="email"/>
                         <input type="text" className="" placeholder="Email address"
                                ref={(email) => this.email = email}
                                onChange={this.handleChange.bind(this, 'email')}/>
-                    </label>
-                    <input type="submit" className="" value="SIGN UP"
+                    </label><br/>
+                    <input  type="submit" className="button" value="SIGN UP"
                            disabled={username || password || email}/>
                 </form>
-                <p>Already have an account? <a href="#">Login</a></p>
+                <p>Already have an account? <a className="login" href="#">Login</a></p>
             </section>
         )
     }
