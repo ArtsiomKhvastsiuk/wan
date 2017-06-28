@@ -21,13 +21,12 @@ input {
     border: 0px solid white;
 }
 
-
 :focus::-webkit-input-placeholder {color: #bcdae7}
 :focus::-moz-placeholder          {color: #bcdae7}
 :focus:-moz-placeholder           {color: #bcdae7}
 :focus:-ms-input-placeholder      {color: #bcdae7}
 
-input:focus {
+input:focus{
     outline: none;
 }
 
@@ -60,3 +59,6 @@ p {
     font-weight: bold;
 }
 
+.active {
+    border-bottom: 1px solid #bcdae7;
+}
