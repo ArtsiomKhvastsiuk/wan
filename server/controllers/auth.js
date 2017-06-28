@@ -12,7 +12,7 @@ exports.register = function (req, res) {
     User.findOne({username}, null, {collation: {locale: 'en', strength: 2}})
         .then((existingUser) => {
             if (existingUser) {
-                return res.status(400).json({error: "This login already exists."});
+                return res.status(400).json({error: "This login already exists.", errno: 2});
             }
 
             const user = new User({
@@ -27,11 +27,15 @@ exports.register = function (req, res) {
                 })
                 .catch((error) => {
                     if (error.name === "ValidationError") {
-                        return res.status(400).json({error: "This password is not valid"});
+                        if (error.errors.username) {
+                            return res.status(400).json({error: "This login is not valid", errno: 2});
+                        }
+                        if (error.errors.email) {
+                            return res.status(400).json({error: "This email is not valid", errno: 4});
+                        }
                     }
-
                     return next(error);
-                })
+                });
 
         })
         .catch((error) => {

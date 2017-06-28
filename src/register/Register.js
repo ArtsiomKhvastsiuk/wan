@@ -52,7 +52,12 @@ class Register extends Component {
                 this.email.value = "";
             })
             .fail((error) => {
-                console.log(error);
+                if (error.responseJSON.errno === 2) {
+                    alert(error.responseJSON.error);
+                }
+                if (error.responseJSON.errno === 4) {
+                    alert(error.responseJSON.error);
+                }
             })
     }
 

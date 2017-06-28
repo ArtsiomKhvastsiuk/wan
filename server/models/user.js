@@ -7,7 +7,7 @@ const UserSchema = new Schema({
             index: true,
             required: true,
             unique: true,
-            match: /^[\w@$!%*#?&]{6,12}$/
+            match: /^[\w@$!%*#?&]{6,32}$/
         },
         password: {
             type: String,

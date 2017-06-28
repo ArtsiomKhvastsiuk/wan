@@ -2,13 +2,36 @@ const express = require('express');
 const passport = require('passport');
 
 const controller = require('../controllers/auth');
+require ('../passport/passport');
 
 const api = express.Router();
 
-const requireLocal = passport.authenticate('local');
+const requireLocal = (name, options) => (req, res, next) => {
+    passport.authenticate(name, options, (error, user, info) => {
+        if (error) {
+            return next(error);
+        }
+        if (!user) {
+            if (!info) {
+                info = {};
+            }
+            if (info.result === undefined) {
+                info.result = false;
+            }
+            return res.json(info);
+        } else {
+            req.logIn(user, function(err) {
+                if (err) {
+                    return next(err);
+                }
+                next();
+            });
+        }
+    })(req, res, next);
+};
 
 api.post('/signup', controller.register);
-api.post('/signin', requireLocal, (req, res) => {
+api.post('/signin', requireLocal('local'), (req, res) => {
     res.json({ result: true });
 });
 

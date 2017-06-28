@@ -44,6 +44,10 @@ app.use('/api', api);
 
 app.use(express.static(path.resolve(__dirname, '..', 'build')));
 
+app.use((req, res, next) => {
+    res.status(404).send("Не найдено!");
+});
+
 app.listen(3001, function () {
     console.log('Example app listening on port 3001!');
 });
