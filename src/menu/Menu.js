@@ -22,6 +22,7 @@ class Menu extends Component {
                 <Link onClick={this.isPressed.bind(this)} className="menu" to="/news">news</Link>
                 <Link onClick={this.isPressed.bind(this)} className="menu" to="/about">about</Link>
                 <Link onClick={this.isPressed.bind(this)} className="menu" to="/signup">sign up</Link>
+                <Link onClick={this.isPressed.bind(this)} className="menu" to="/signin">sign in</Link>
             </header>
         )
     }
