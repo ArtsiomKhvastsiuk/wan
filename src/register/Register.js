@@ -55,6 +55,9 @@ class Register extends Component {
                 if (error.responseJSON.errno === 2) {
                     alert(error.responseJSON.error);
                 }
+                if (error.responseJSON.errno === 3) {
+                    alert(error.responseJSON.error);
+                }
                 if (error.responseJSON.errno === 4) {
                     alert(error.responseJSON.error);
                 }

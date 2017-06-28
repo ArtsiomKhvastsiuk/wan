@@ -30,6 +30,9 @@ exports.register = function (req, res) {
                         if (error.errors.username) {
                             return res.status(400).json({error: "This login is not valid", errno: 2});
                         }
+                        if (error.errors.password) {
+                            return res.status(400).json({error: "This Password is not valid", errno: 3});
+                        }
                         if (error.errors.email) {
                             return res.status(400).json({error: "This email is not valid", errno: 4});
                         }

@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
 const Schema = require('mongoose').Schema;
+const ValidationError = mongoose.Error.ValidationError;
 
 const UserSchema = new Schema({
         username: {
@@ -25,8 +27,23 @@ const UserSchema = new Schema({
         timestamp: true
     });
 
-UserSchema.methods.validPassword = function (password) {
-    return this.password === password;
-};
+UserSchema.pre('save', function (next) {
+    if (!this.isModified('password')) return next();
+
+    if (!this.password.match(/^[\w@$!,.%*#?&]{6,32}$/)) {
+        const err = new ValidationError();
+        err.errors.password = {message: "Password is not valid", errno:3};
+        next(err);
+        return;
+    }
+
+    const saltRounds = 10;
+    bcrypt.hash(this.password, saltRounds, (error, hash) => {
+        if (error) return next(error);
+        this.password = hash;
+        next();
+    });
+});
+
 
 module.exports = mongoose.model("User", UserSchema);
