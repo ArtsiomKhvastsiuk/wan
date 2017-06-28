@@ -5,8 +5,11 @@ const controller = require('../controllers/auth');
 
 const api = express.Router();
 
-/*const requireLocal = passport.authenticate('local');*/
+const requireLocal = passport.authenticate('local');
 
 api.post('/signup', controller.register);
+api.post('/signin', requireLocal, (req, res) => {
+    res.json({ result: true });
+});
 
 module.exports = api;

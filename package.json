@@ -18,6 +18,7 @@
     "mongoose": "^4.11.0",
     "osmosis": "^1.1.4",
     "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "react-router-dom": "^4.1.1",
     "react-scripts": "1.0.7",
     "react-tap-event-plugin": "^2.0.1"
