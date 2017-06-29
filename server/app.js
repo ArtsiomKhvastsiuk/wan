@@ -20,6 +20,8 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
     secret: 'secret',
     store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    resave: false,
+    saveUninitialized: false,
     cookie: {
         secure: 'false'
     }
