@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import * as $ from 'jquery';
 import './auth.css';
+import {inject, observer} from 'mobx-react';
 
+@inject("user") @observer
 class Authentication extends Component {
     constructor(props) {
         super(props);
@@ -26,9 +28,13 @@ class Authentication extends Component {
             password: this.password.value,
         })
             .done((res) => {
-                this.username.value = "";
-                this.password.value = "";
-                this.props.history.push('/');
+                if (res.responseText === "success") {
+                    this.username.value = "";
+                    this.password.value = "";
+                    this.props.user.isAuthenticated = true;
+                    this.props.history.push('/');
+                }
+
             })
             .fail((error) => {
                 console.log(error);

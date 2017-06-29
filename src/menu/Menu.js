@@ -1,7 +1,9 @@
 import './menu.css';
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
+import {inject, observer} from "mobx-react";
 
+@inject("user") @observer
 class Menu extends Component {
 
 
@@ -21,8 +23,14 @@ class Menu extends Component {
                 <Link onClick={this.isPressed.bind(this)} className="menu" to="/weather">weather</Link>
                 <Link onClick={this.isPressed.bind(this)} className="menu" to="/news">news</Link>
                 <Link onClick={this.isPressed.bind(this)} className="menu" to="/about">about</Link>
-                <Link onClick={this.isPressed.bind(this)} className="menu" to="/signup">sign up</Link>
-                <Link onClick={this.isPressed.bind(this)} className="menu" to="/signin">sign in</Link>
+                {
+                    !this.props.user.isAuthenticated &&
+                        <section>
+                            <Link onClick={this.isPressed.bind(this)} className="menu" to="/signup">sign up</Link>
+                            <Link onClick={this.isPressed.bind(this)} className="menu" to="/signin">sign in</Link>
+                        </section>
+                }
+
             </header>
         )
     }
