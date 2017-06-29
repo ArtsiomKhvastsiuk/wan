@@ -7,23 +7,27 @@ passport.use(new LocalStrategy(
     function (username, password, done) {
         User.findOne({username}, (error, user) => {
             if (error) {
-                done(error);
+                return done(error);
             }
 
             if (!user) {
-                done(null, false, {message: "Incorrect username"});
+                return done(null, false, {message: "Incorrect username"});
             }
 
-            if (!user.validPassword(password)) {
-                return done(null, false, {message: 'Incorrect password'});
-            }
+            user.comparePassword(password, (error, result) => {
+                if (error) {
+                    return done(error);
+                }
+                if (!result) {
+                    return done(null, false, {error: 'Incorrect password', errno: 3});
+                }
+                return done(null, user);
+            });
 
-            return done(null, user);
         });
 
     }
 ));
-
 
 passport.serializeUser((user, done) => {
     done(null, user.id);

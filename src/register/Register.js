@@ -82,7 +82,7 @@ class Register extends Component {
                     </label><br/>
                     <label>
                         <img src={require("./img/password.png")} alt="password"/>
-                        <input type="text" className="" placeholder="Password"
+                        <input type="password" className="" placeholder="Password"
                                ref={(password) => this.password = password}
                                onChange={this.handleChange.bind(this, 'password')}
                                onFocus={this.handleFocus.bind(this, 'password')}/>
