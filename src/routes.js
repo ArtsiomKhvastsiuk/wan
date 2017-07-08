@@ -5,6 +5,7 @@ import News from './news/News';
 import Menu from './menu/Menu';
 import Register from './register/Register';
 import Authentication from './authentication/Auth';
+import CriticalError from './Error/CriticalError'
 import App from './app/App';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -27,6 +28,7 @@ const Routes = observer((props) => (
                             <Route path="/about" component={News}/>
                             <Route path="/signup" component={Register}/>
                             <Route path="/signin" component={Authentication}/>
+                            <Route path="/error" component={CriticalError}/>
                         </Switch>
                     </div>
                 </section>

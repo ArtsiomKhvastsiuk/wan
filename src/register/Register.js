@@ -14,7 +14,7 @@ class Register extends Component {
 
     handleFocus(inputName, event) {
         const label = event.target.parentElement;
-        label.children[0].src = require("./img/"+inputName + "1" + ".png");
+        label.children[0].src = require("./img/" + inputName + "1" + ".png");
         const labels = document.querySelectorAll('label');
         label.classList.add('active');
         for (let i = 0; i < labels.length; i++) {
@@ -39,6 +39,7 @@ class Register extends Component {
     }
 
     handleSubmit(event) {
+        const self = this;
         event.preventDefault();
         $.post("http://localhost:3001/api/signup", {
             username: this.username.value,
@@ -52,15 +53,22 @@ class Register extends Component {
                 this.email.value = "";
             })
             .fail((error) => {
-                if (error.responseJSON.errno === 2) {
-                    alert(error.responseJSON.error);
+                if (error.responseJSON) {
+                    if (error.responseJSON.errno === 2) {
+                        alert(error.responseJSON.error);
+                        return;
+                    }
+                    if (error.responseJSON.errno === 3) {
+                        alert(error.responseJSON.error);
+                        return;
+                    }
+                    if (error.responseJSON.errno === 4) {
+                        alert(error.responseJSON.error);
+                        return;
+                    }
                 }
-                if (error.responseJSON.errno === 3) {
-                    alert(error.responseJSON.error);
-                }
-                if (error.responseJSON.errno === 4) {
-                    alert(error.responseJSON.error);
-                }
+                // сервер не доступен, сервеная ошибка, не заполнены поля.
+                self.props.history.push('/error');
             })
     }
 
@@ -78,7 +86,7 @@ class Register extends Component {
                         <input type="text" className="" placeholder="Login"
                                ref={(username) => this.username = username}
                                onChange={this.handleChange.bind(this, 'username')}
-                                onFocus={this.handleFocus.bind(this, 'login')}/>
+                               onFocus={this.handleFocus.bind(this, 'login')}/>
                     </label><br/>
                     <label>
                         <img src={require("./img/password.png")} alt="password"/>
@@ -94,10 +102,10 @@ class Register extends Component {
                                onChange={this.handleChange.bind(this, 'email')}
                                onFocus={this.handleFocus.bind(this, 'email')}/>
                     </label><br/>
-                    <input  type="submit" className="button" value="SIGN UP"
-                           disabled={username || password || email}/>
+                    <input type="submit" className="button" value="SIGN UP"
+                           /*disabled={username || password || email}*//>
                 </form>
-                <p>Already have an account? <a className="login" href="#">Login</a></p>
+                <p>Already have an account? <a className="login" href="/signin">Login</a></p>
             </section>
         )
     }
