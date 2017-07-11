@@ -24,6 +24,8 @@ header {
 
 .menu {
     margin-right: 35px;
+    display: inline-block;
+    float: left;
 }
 
 .active {
@@ -32,6 +34,6 @@ header {
 }
 
 .profile-img {
-    width: 45px;
-    height: 45px;
+    padding-top: 1px;
+    height: 15px;
 }

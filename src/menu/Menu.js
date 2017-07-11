@@ -18,9 +18,12 @@ class Menu extends Component {
     render() {
         return (
             <header>
-                <Link onClick={this.isPressed.bind(this)} className="menu" to="/weather">weather</Link>
-                <Link onClick={this.isPressed.bind(this)} className="menu" to="/news">news</Link>
-                <Link onClick={this.isPressed.bind(this)} className="menu" to="/about">about</Link>
+
+                    <Link onClick={this.isPressed.bind(this)} className="menu" to="/weather">weather</Link>
+                    <Link onClick={this.isPressed.bind(this)} className="menu" to="/news">news</Link>
+                    <Link onClick={this.isPressed.bind(this)} className="menu" to="/about">about</Link>
+
+
                 {
                     !this.props.user.isAuthenticated &&
                         <section className="signup-in">
@@ -31,9 +34,11 @@ class Menu extends Component {
 
                 {
                     this.props.user.isAuthenticated &&
-                    <Link onClick={this.isPressed.bind(this)} className="menu" to="/profile">
-                        <img className="profile-img" src={require("./img/profile2.png")} alt="password"/>
-                    </Link>
+                        <section className="signup-in">
+                            <Link onClick={this.isPressed.bind(this)} className="menu" to="/profile">
+                                <img className="profile-img" src={require("./img/profile2.png")} alt="password"/>
+                            </Link>
+                        </section>
                 }
 
             </header>
