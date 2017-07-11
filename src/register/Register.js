@@ -22,8 +22,6 @@ class Register extends Component {
                 labels[i].classList.remove('active');
             }
         }
-
-
     };
 
     handleChange(inputName, event) {
@@ -67,7 +65,7 @@ class Register extends Component {
                         return;
                     }
                 }
-                // сервер не доступен, сервеная ошибка, не заполнены поля.
+
                 self.props.history.push('/error');
             })
     }

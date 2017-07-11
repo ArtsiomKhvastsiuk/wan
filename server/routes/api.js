@@ -2,7 +2,8 @@ const express = require('express');
 const passport = require('passport');
 
 const controller = require('../controllers/auth');
-require ('../passport/passport');
+
+const User = require('../models/user');
 
 const api = express.Router();
 
@@ -34,5 +35,16 @@ api.post('/signup', controller.register);
 api.post('/signin', requireLocal('local'), (req, res) => {
     res.json({ result: true });
 });
+api.get('/check-auth', checkAuthentication, (req, res, next) => {
+    res.json({message: `Hello, ${req.user.username}!`})
+});
+
+function checkAuthentication (req,res,next) {
+    if (req.isAuthenticated()) {
+        next();
+    } else{
+        next();
+    }
+}
 
 module.exports = api;

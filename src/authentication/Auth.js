@@ -13,6 +13,16 @@ class Authentication extends Component {
         };
     }
 
+/*    componentWillMount() {
+        $.get("http://localhost:3001/api/check-auth")
+            .done((res) => {
+                console.log(res);
+            })
+            .fail((error) => {
+                console.log(error);
+            })
+    }*/
+
     handleFocus(inputName, event) {
 
     };
@@ -28,7 +38,7 @@ class Authentication extends Component {
             password: this.password.value,
         })
             .done((res) => {
-                if (res.responseText === "success") {
+                if (res.result) {
                     this.username.value = "";
                     this.password.value = "";
                     this.props.user.isAuthenticated = true;
