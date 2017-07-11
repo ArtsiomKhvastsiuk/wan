@@ -29,6 +29,13 @@ class Menu extends Component {
                         </section>
                 }
 
+                {
+                    this.props.user.isAuthenticated &&
+                    <Link onClick={this.isPressed.bind(this)} className="menu" to="/profile">
+                        <img className="profile-img" src={require("./img/profile.png")} alt="password"/>
+                    </Link>
+                }
+
             </header>
         )
     }

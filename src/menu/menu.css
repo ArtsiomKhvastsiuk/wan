@@ -30,3 +30,8 @@ header {
     border-bottom: 0px solid #fff !important;
     color: #ffd200;
 }
+
+.profile-img {
+    width: 45px;
+    height: 45px;
+}
