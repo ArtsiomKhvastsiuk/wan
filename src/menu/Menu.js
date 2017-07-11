@@ -32,7 +32,7 @@ class Menu extends Component {
                 {
                     this.props.user.isAuthenticated &&
                     <Link onClick={this.isPressed.bind(this)} className="menu" to="/profile">
-                        <img className="profile-img" src={require("./img/profile.png")} alt="password"/>
+                        <img className="profile-img" src={require("./img/profile2.png")} alt="password"/>
                     </Link>
                 }
 

@@ -35,16 +35,21 @@ api.post('/signup', controller.register);
 api.post('/signin', requireLocal('local'), (req, res) => {
     res.json({ result: true });
 });
-api.get('/check-auth', checkAuthentication, (req, res, next) => {
-    res.json({message: `Hello, ${req.user.username}!`})
+
+api.get('/check-auth', (req, res) => {
+    if (req.isAuthenticated()) {
+        res.json({status: true});
+    } else{
+        res.json({status: false});
+    }
 });
 
-function checkAuthentication (req,res,next) {
+/*function checkAuthentication (req, res, next) {
     if (req.isAuthenticated()) {
         next();
     } else{
         next();
     }
-}
+}*/
 
 module.exports = api;
