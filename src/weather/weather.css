@@ -4,23 +4,27 @@
 }
 
 .data-of-temp {
+    width: 600px;
+    height: 180px;
     position: absolute;
-    top: 35%;
-    left: 30%;
-    clear: right;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
 }
 
 .data-of-temp p {
     clear: right;
     margin: 0;
     text-align: center;
-    color: #ffff1e;
+    color: #ffd200;
     font-family: 'AvenirLT-Book';
     font-size: 80px;
 }
 
 .request-failed {
-    color: #ffff1e;
+    color: #ffd200;
     display: none;
     position: absolute;
     left: 50%;

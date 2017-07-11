@@ -6,14 +6,12 @@ import {inject, observer} from "mobx-react";
 @inject("user") @observer
 class Menu extends Component {
 
-
     isPressed(event) {
-        const header = document.getElementsByTagName('header');
-        const children = header[0].children;
-        for (let i = 0; i < children.length; i++) {
-            if (event.target === children[i]) {
-                children[i].classList.add('active');
-            } else children[i].classList.remove('active');
+        const menuItems = document.querySelectorAll('.menu');
+        for (let i = 0; i < menuItems.length; i++) {
+            if (event.target === menuItems[i]) {
+                menuItems[i].classList.add('active');
+            } else menuItems[i].classList.remove('active');
         }
     }
 
@@ -25,7 +23,7 @@ class Menu extends Component {
                 <Link onClick={this.isPressed.bind(this)} className="menu" to="/about">about</Link>
                 {
                     !this.props.user.isAuthenticated &&
-                        <section>
+                        <section className="signup-in">
                             <Link onClick={this.isPressed.bind(this)} className="menu" to="/signup">sign up</Link>
                             <Link onClick={this.isPressed.bind(this)} className="menu" to="/signin">sign in</Link>
                         </section>

@@ -16,6 +16,7 @@ label {
 }
 
 input {
+    background-color: #f7f6f6;
     width: 215px;
     height: 40px;
     border: 0px solid white;
@@ -60,6 +61,6 @@ p {
     font-weight: bold;
 }
 
-.active {
-    border-bottom: 1px solid #bcdae7;
+.active-signup {
+    border-bottom: 1px solid #bcdae7 !important;
 }

@@ -1,4 +1,4 @@
-    import React, {Component} from 'react';
+import React, {Component} from 'react';
 import './weather.css';
 import * as $ from 'jquery';
 import CircularProgress from 'material-ui/CircularProgress';
@@ -64,15 +64,16 @@ class Weather extends Component {
                 <section className="refresh">
                     {
                         this.state.refresh &&
-                        <CircularProgress size={60} thickness={7} color="#ffff1e    "/>
+                        <CircularProgress size={60} thickness={7} color="#ffd200"/>
                     }
                 </section>
 
-                {this.state.hasMounted &&
-                <section className="data-of-temp">
-                    <p>{this.state.country}, {this.state.city}</p>
-                    <p>{this.state.temp} &deg;C</p>
-                </section>
+                {
+                    this.state.hasMounted &&
+                    <section className="data-of-temp">
+                        <p>{this.state.country}, {this.state.city}</p>
+                        <p>{this.state.temp} &deg;C</p>
+                    </section>
                 }
                 <section className="request-failed">
                     <p>{this.state.errorText}</p>

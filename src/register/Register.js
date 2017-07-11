@@ -16,10 +16,10 @@ class Register extends Component {
         const label = event.target.parentElement;
         label.children[0].src = require("./img/" + inputName + "1" + ".png");
         const labels = document.querySelectorAll('label');
-        label.classList.add('active');
+        label.classList.add('active-signup');
         for (let i = 0; i < labels.length; i++) {
             if (label !== labels[i]) {
-                labels[i].classList.remove('active');
+                labels[i].classList.remove('active-signup');
             }
         }
     };
