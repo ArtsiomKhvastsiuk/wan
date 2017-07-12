@@ -39,17 +39,10 @@ api.post('/signin', requireLocal('local'), (req, res) => {
 api.get('/check-auth', (req, res) => {
     if (req.isAuthenticated()) {
         res.json({status: true});
-    } else{
+    } else {
         res.json({status: false});
     }
 });
 
-/*function checkAuthentication (req, res, next) {
-    if (req.isAuthenticated()) {
-        next();
-    } else{
-        next();
-    }
-}*/
 
 module.exports = api;

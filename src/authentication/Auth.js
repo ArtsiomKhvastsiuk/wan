@@ -43,11 +43,19 @@ class Authentication extends Component {
                     this.password.value = "";
                     this.props.user.isAuthenticated = true;
                     this.props.history.push('/');
+                    return;
+                } else if (res.errno === 2) {
+                    alert("Incorrect username");
+                    return;
+                } else if (res.errno === 3)  {
+                    alert("Incorrect password");
+                    return;
                 }
 
+                alert("Missing credentials");
             })
             .fail((error) => {
-                console.log(error);
+                this.props.history.push('/error');
             })
     }
 

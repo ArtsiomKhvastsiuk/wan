@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 const Schema = require('mongoose').Schema;
 const ValidationError = mongoose.Error.ValidationError;
 
@@ -9,7 +9,7 @@ const UserSchema = new Schema({
             index: true,
             required: true,
             unique: true,
-            match: /^[\w@$!%*#?&]{6,32}$/
+            match: /^[\w@$!%*#?&]{2,32}$/
         },
         password: {
             type: String,

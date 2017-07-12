@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import * as $ from 'jquery';
 import './register.css';
+import {inject} from 'mobx-react'
 
+@inject("user")
 class Register extends Component {
     constructor(props) {
         super(props);
@@ -45,27 +47,48 @@ class Register extends Component {
             email: this.email.value
         })
             .done((res) => {
-                console.log(res);
-                this.username.value = "";
-                this.password.value = "";
-                this.email.value = "";
+                // login already exists
+                if (res.errno === 1) {
+                    alert(res.message);
+                    return;
+                }
+
+                if (res.result) {
+                    this.username.value = "";
+                    this.password.value = "";
+                    this.email.value = "";
+                    this.props.user.isAuthenticated = true;
+                    this.props.history.push('/profile');
+                    alert("You've successfully registered");
+                    return;
+                }
+
+                // required parameters are missing
+                alert(res.message);
+
             })
             .fail((error) => {
+                //validation errors
                 if (error.responseJSON) {
+                    // username
                     if (error.responseJSON.errno === 2) {
                         alert(error.responseJSON.error);
                         return;
                     }
+                    // password
                     if (error.responseJSON.errno === 3) {
                         alert(error.responseJSON.error);
                         return;
                     }
+                    // email
                     if (error.responseJSON.errno === 4) {
                         alert(error.responseJSON.error);
                         return;
                     }
                 }
 
+
+                // critical error
                 self.props.history.push('/error');
             })
     }

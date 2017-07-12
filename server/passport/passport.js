@@ -11,7 +11,7 @@ passport.use(new LocalStrategy(
             }
 
             if (!user) {
-                return done(null, false, {message: "Incorrect username"});
+                return done(null, false, {message: "Incorrect username", errno: 2});
             }
 
             user.comparePassword(password, (error, result) => {
@@ -19,7 +19,7 @@ passport.use(new LocalStrategy(
                     return done(error);
                 }
                 if (!result) {
-                    return done(null, false, {error: 'Incorrect password', errno: 3});
+                    return done(null, false, {message: 'Incorrect password', errno: 3});
                 }
                 return done(null, user);
             });

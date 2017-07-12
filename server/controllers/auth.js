@@ -6,13 +6,13 @@ exports.register = function (req, res) {
     const email = req.body.email;
 
     if (!username || !password || !email) {
-        return res.status(400).json({error: "The required parameters are missing."});
+        return res.json({message: "The required parameters are missing."});
     }
 
     User.findOne({username}, null, {collation: {locale: 'en', strength: 2}})
         .then((existingUser) => {
             if (existingUser) {
-                return res.status(400).json({error: "This login already exists.", errno: 2});
+                return res.json({message: "This login already exists.", errno: 1});
             }
 
             const user = new User({
@@ -23,18 +23,18 @@ exports.register = function (req, res) {
 
             user.save()
                 .then(() => {
-                    return res.status(200).json({result: "'success'"})
+                    return res.json({result: true})
                 })
                 .catch((error) => {
                     if (error.name === "ValidationError") {
                         if (error.errors.username) {
-                            return res.status(400).json({error: "This login is not valid", errno: 2});
+                            return res.json({message: "This login is not valid", errno: 2});
                         }
                         if (error.errors.password) {
-                            return res.status(400).json({error: "This Password is not valid", errno: 3});
+                            return res.json({message: "This password is not valid", errno: 3});
                         }
                         if (error.errors.email) {
-                            return res.status(400).json({error: "This email is not valid", errno: 4});
+                            return res.json({message: "This email is not valid", errno: 4});
                         }
                     }
                     return next(error);
