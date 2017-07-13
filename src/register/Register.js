@@ -7,11 +7,20 @@ import {inject} from 'mobx-react'
 class Register extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            username: true,
-            password: true,
-            email: true,
-        };
+    }
+
+    componentWillMount() {
+        $.get('http://localhost:3001/api/check-auth')
+            .done((res) => {
+                if (res.status) {
+                    this.props.user.isAuthenticated = true;
+                    this.props.user.alertFlag = true;
+                    this.props.history.push('/');
+                }
+            })
+            .fail((error) => {
+                this.props.history.push('/error');
+            })
     }
 
     handleFocus(inputName, event) {
@@ -94,10 +103,6 @@ class Register extends Component {
     }
 
     render() {
-        let username = this.state.username;
-        let password = this.state.password;
-        let email = this.state.email;
-
         return (
             <section className="form">
                 <p className="text">Create your account now</p>
@@ -123,8 +128,7 @@ class Register extends Component {
                                onChange={this.handleChange.bind(this, 'email')}
                                onFocus={this.handleFocus.bind(this, 'email')}/>
                     </label><br/>
-                    <input type="submit" className="button" value="SIGN UP"
-                           /*disabled={username || password || email}*//>
+                    <input type="submit" className="button" value="SIGN UP"/>
                 </form>
                 <p>Already have an account? <a className="login" href="/signin">Login</a></p>
             </section>

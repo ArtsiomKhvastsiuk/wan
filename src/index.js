@@ -6,6 +6,7 @@ import {observable} from "mobx";
 
 class User {
     @observable isAuthenticated = false;
+    @observable alertFlag = false;
 }
 
 let user = new User();

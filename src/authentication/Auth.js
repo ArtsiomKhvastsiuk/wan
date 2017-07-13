@@ -3,7 +3,7 @@ import * as $ from 'jquery';
 import './auth.css';
 import {inject, observer} from 'mobx-react';
 
-@inject("user") @observer
+@inject("user")
 class Authentication extends Component {
     constructor(props) {
         super(props);
@@ -13,15 +13,19 @@ class Authentication extends Component {
         };
     }
 
-/*    componentWillMount() {
-        $.get("http://localhost:3001/api/check-auth")
+    componentWillMount() {
+        $.get('http://localhost:3001/api/check-auth')
             .done((res) => {
-                console.log(res);
+                if (res.status) {
+                    this.props.user.isAuthenticated = true;
+                    this.props.user.alertFlag = true;
+                    this.props.history.push('/');
+                }
             })
             .fail((error) => {
-                console.log(error);
+                this.props.history.push('/error');
             })
-    }*/
+    }
 
     handleFocus(inputName, event) {
 

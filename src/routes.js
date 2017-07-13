@@ -5,7 +5,7 @@ import News from './news/News';
 import Menu from './menu/Menu';
 import Register from './register/Register';
 import Authentication from './authentication/Auth';
-import CriticalError from './Error/CriticalError'
+import CriticalError from './error/CriticalError'
 import App from './app/App';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
