@@ -4,7 +4,6 @@
 }
 
 .data-of-temp {
-    width: 600px;
     height: 180px;
     position: absolute;
     top: 0;
@@ -15,7 +14,6 @@
 }
 
 .data-of-temp p {
-    clear: right;
     margin: 0;
     text-align: center;
     color: #ffd200;
