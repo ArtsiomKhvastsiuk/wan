@@ -28,8 +28,14 @@ class Authentication extends Component {
     }
 
     handleFocus(inputName, event) {
-
+        const label = event.target.parentElement;
+        label.children[0].src = require("./img/" + inputName + "1" + ".png");
     };
+
+    handleBlur(inputName, event){
+        const label = event.target.parentElement;
+        label.children[0].src = require("./img/" + inputName + ".png");
+    }
 
     handleChange(inputName, event) {
 
@@ -72,14 +78,16 @@ class Authentication extends Component {
                         <input type="text" className="" placeholder="Login"
                                ref={(username) => this.username = username}
                                onChange={this.handleChange.bind(this, 'username')}
-                               onFocus={this.handleFocus.bind(this, 'login')}/>
+                               onFocus={this.handleFocus.bind(this, 'login')}
+                               onBlur={this.handleBlur.bind(this, 'login')}/>
                     </label><br/>
                     <label>
                         <img src={require("./img/password.png")} alt="password"/>
                         <input type="password" className="" placeholder="Password"
                                ref={(password) => this.password = password}
                                onChange={this.handleChange.bind(this, 'password')}
-                               onFocus={this.handleFocus.bind(this, 'password')}/>
+                               onFocus={this.handleFocus.bind(this, 'password')}
+                               onBlur={this.handleBlur.bind(this, 'password')}/>
                     </label><br/>
                     <input  type="submit" className="button" value="SIGN IN" />
                 </form>

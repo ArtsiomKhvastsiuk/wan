@@ -14,6 +14,11 @@ label {
     display: block;
     border-bottom: 1px solid #c3c3c3;
 }
+label:focus{
+    border-bottom: 1px solid #bcdae7 !important;
+}
+
+
 
 input {
     background-color: #f7f6f6;
@@ -59,8 +64,4 @@ p {
     padding-left: 3px;
     color: #f4d503;
     font-weight: bold;
-}
-
-.active-signup {
-    border-bottom: 1px solid #bcdae7 !important;
 }

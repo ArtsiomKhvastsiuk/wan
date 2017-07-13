@@ -23,17 +23,15 @@ class Register extends Component {
             })
     }
 
-    handleFocus(inputName, event) {
+     handleFocus(inputName, event) {
         const label = event.target.parentElement;
         label.children[0].src = require("./img/" + inputName + "1" + ".png");
-        const labels = document.querySelectorAll('label');
-        label.classList.add('active-signup');
-        for (let i = 0; i < labels.length; i++) {
-            if (label !== labels[i]) {
-                labels[i].classList.remove('active-signup');
-            }
-        }
-    };
+     };
+
+    handleBlur(inputName, event){
+        const label = event.target.parentElement;
+        label.children[0].src = require("./img/" + inputName + ".png");
+    }
 
     handleChange(inputName, event) {
         if (event.target.value.trim().length > 0) {
@@ -112,21 +110,24 @@ class Register extends Component {
                         <input type="text" className="" placeholder="Login"
                                ref={(username) => this.username = username}
                                onChange={this.handleChange.bind(this, 'username')}
-                               onFocus={this.handleFocus.bind(this, 'login')}/>
+                               onFocus={this.handleFocus.bind(this, 'login')}
+                               onBlur={this.handleBlur.bind(this, 'login')}/>
                     </label><br/>
                     <label>
                         <img src={require("./img/password.png")} alt="password"/>
                         <input type="password" className="" placeholder="Password"
                                ref={(password) => this.password = password}
                                onChange={this.handleChange.bind(this, 'password')}
-                               onFocus={this.handleFocus.bind(this, 'password')}/>
+                               onFocus={this.handleFocus.bind(this, 'password')}
+                               onBlur={this.handleBlur.bind(this, 'password')}/>
                     </label><br/>
                     <label>
                         <img src={require("./img/email.png")} alt="email"/>
                         <input type="text" className="" placeholder="Email address"
                                ref={(email) => this.email = email}
                                onChange={this.handleChange.bind(this, 'email')}
-                               onFocus={this.handleFocus.bind(this, 'email')}/>
+                               onFocus={this.handleFocus.bind(this, 'email')}
+                               onBlur={this.handleBlur.bind(this, 'email')}/>
                     </label><br/>
                     <input type="submit" className="button" value="SIGN UP"/>
                 </form>
