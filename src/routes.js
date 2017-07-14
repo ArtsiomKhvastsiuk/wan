@@ -19,7 +19,6 @@ const Routes = observer((props) => (
         <MuiThemeProvider>
             <BrowserRouter>
                 <section>
-                    <Menu />
                     <div>
                         <Switch>
                             <Route exact path="/" component={App}/>

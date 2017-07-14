@@ -1,3 +1,11 @@
-/**
- * Created by inatm on 14.07.2017.
- */
+import React from 'react';
+import './search.css';
+
+const Search = ()=> {
+    return (
+        <section className="search">
+        </section>
+    )
+}
+
+export default Search;

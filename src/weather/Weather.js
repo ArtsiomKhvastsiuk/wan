@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
-import './weather.css';
+import  './weather.css';
 import * as $ from 'jquery';
 import CircularProgress from 'material-ui/CircularProgress';
+import Menu from '../menu/Menu';
+import Search from '../menu/Search';
+
 
 class Weather extends Component {
 
@@ -13,7 +16,8 @@ class Weather extends Component {
             temp: 0,
             errorText: "",
             hasMounted: false,
-            refresh: true
+            refresh: true,
+            date: new Date().toLocaleString()
         }
     }
 
@@ -30,6 +34,8 @@ class Weather extends Component {
     }
 
     componentWillMount() {
+        document.body.classList.add("bodyWeather");
+
         const self = this;
         this.getCurrentPosition((error, result) => {
             if (error) {
@@ -42,7 +48,7 @@ class Weather extends Component {
                     self.setState({
                         country: data.current_observation.display_location.state_name,
                         city: data.current_observation.display_location.city,
-                        temp: data.current_observation.temp_c,
+                        temp: Math.floor(data.current_observation.temp_c),
                         hasMounted: true,
                         refresh: false
                     });
@@ -57,26 +63,34 @@ class Weather extends Component {
         });
     }
 
+    componentWillUnmount() {
+        document.body.classList.remove("bodyWeather");
+    }
 
     render() {
         return (
-            <section className="weather-container">
-                <section className="refresh">
-                    {
-                        this.state.refresh &&
-                        <CircularProgress size={60} thickness={7} color="#ffd200"/>
-                    }
-                </section>
-
-                {
-                    this.state.hasMounted &&
-                    <section className="data-of-temp">
-                        <p>{this.state.country}, {this.state.city}</p>
-                        <p>{this.state.temp} &deg;C</p>
+            <section>
+                <Menu />
+                <Search />
+                <section className="weather-container">
+                    <section className="refresh">
+                        {
+                            this.state.refresh &&
+                            <CircularProgress size={60} thickness={7} color="#ffd200"/>
+                        }
                     </section>
-                }
-                <section className="request-failed">
-                    <p>{this.state.errorText}</p>
+
+                    {
+                        this.state.hasMounted &&
+                        <section className="data-of-temp">
+                            <p className="location">{this.state.country}, {this.state.city}</p>
+                            <p className="temperature">{this.state.temp}&deg;</p>
+                            <p className="date">{this.state.date}</p>
+                        </section>
+                    }
+                    <section className="request-failed">
+                        <p>{this.state.errorText}</p>
+                    </section>
                 </section>
             </section>
         )

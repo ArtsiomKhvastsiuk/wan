@@ -8,16 +8,8 @@
     src: url(./fonts/Neou-Thin.otf);
 }
 
-html {
-    height: 100%;
-}
-
 body {
     background-color: #f7f6f6;
-}
-
-#root {
-    width: 100%;
 }
 
 main {

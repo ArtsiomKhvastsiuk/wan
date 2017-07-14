@@ -1,10 +1,19 @@
+.bodyWeather {
+    background-image: url(img/background.jpg);
+}
+
 @font-face {
-    font-family: 'AvenirLT-Book';
-    src: url(./fonts/avenir-lt-book.otf);
+    font-family: 'PTSans-Regular';
+    src: url(./fonts/PT_Sans-Web-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'PTSans-Bold';
+    src: url(./fonts/PT_Sans-Web-Bold.ttf);
 }
 
 .data-of-temp {
-    height: 175px;
+    height: 335px;
     position: absolute;
     top: 0;
     left: 0;
@@ -13,12 +22,30 @@
     margin: auto;
 }
 
-.data-of-temp p {
+.location {
     margin: 0;
     text-align: center;
+    color: #585858;
+    font-family: 'PTSans-Regular';
+    font-size: 60px;
+}
+
+
+.temperature {
+    height: 250px;
+    margin: -50px 0 35px 0;
+    text-align: center;
     color: #ffd200;
-    font-family: 'AvenirLT-Book';
-    font-size: 80px;
+    font-family: 'PTSans-Bold';
+    font-size: 240px;
+}
+
+.date {
+    margin: 0;
+    text-align: center;
+    color: #585858;
+    font-family: 'PTSans-Bold';
+    font-size: 15px;
 }
 
 .request-failed {
