@@ -1,9 +1,13 @@
+.critical-error {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    color: #585858;
+    font-size: 45px;
+
+}
+
 h1 {
+    font-family: 'PTSans-Regular';
     margin: 0;
-    padding: 0;
-    clear: both;
-    text-align: center;
-    vertical-align: middle;
-    color: black;
-    font-size: 65px;
 }

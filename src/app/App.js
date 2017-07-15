@@ -36,7 +36,6 @@ class App extends React.Component {
     render() {
         return (
             <section>
-                <Menu />
                 <main>
                     { this.props.user.alertFlag && <AlertBox /> }
                     <p>wan</p>

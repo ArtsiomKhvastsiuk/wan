@@ -7,6 +7,13 @@ import {observable} from "mobx";
 class User {
     @observable isAuthenticated = false;
     @observable alertFlag = false;
+    @observable city = null;
+}
+
+class Weather {
+    @observable data = {
+        country: null,
+    }
 }
 
 let user = new User();

@@ -11,14 +11,22 @@ import App from './app/App';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import {Provider, observer} from 'mobx-react';
-
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 injectTapEventPlugin();
+
+
+const muiTheme = getMuiTheme({}, {
+    palette: {
+        accent1Color: '#ffd200',
+    },
+});
 
 const Routes = observer((props) => (
     <Provider {...props}>
-        <MuiThemeProvider>
+        <MuiThemeProvider muiTheme={muiTheme}>
             <BrowserRouter>
                 <section>
+                    <Menu />
                     <div>
                         <Switch>
                             <Route exact path="/" component={App}/>

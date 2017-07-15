@@ -2,10 +2,11 @@ import React, {Component} from 'react';
 import  './weather.css';
 import * as $ from 'jquery';
 import CircularProgress from 'material-ui/CircularProgress';
-import Menu from '../menu/Menu';
 import Search from '../menu/Search';
+import {inject, observer} from 'mobx-react'
 
 
+@inject("user") @observer
 class Weather extends Component {
 
     constructor(props) {
@@ -15,7 +16,7 @@ class Weather extends Component {
             city: "",
             temp: 0,
             errorText: "",
-            hasMounted: false,
+            isMounted: false,
             refresh: true,
             date: new Date().toLocaleString()
         }
@@ -49,7 +50,7 @@ class Weather extends Component {
                         country: data.current_observation.display_location.state_name,
                         city: data.current_observation.display_location.city,
                         temp: Math.floor(data.current_observation.temp_c),
-                        hasMounted: true,
+                        isMounted: true,
                         refresh: false
                     });
                 })
@@ -70,7 +71,6 @@ class Weather extends Component {
     render() {
         return (
             <section>
-                <Menu />
                 <Search />
                 <section className="weather-container">
                     <section className="refresh">
@@ -81,7 +81,7 @@ class Weather extends Component {
                     </section>
 
                     {
-                        this.state.hasMounted &&
+                        this.state.isMounted &&
                         <section className="data-of-temp">
                             <p className="location">{this.state.country}, {this.state.city}</p>
                             <p className="temperature">{this.state.temp}&deg;</p>
