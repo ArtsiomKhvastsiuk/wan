@@ -2,24 +2,24 @@ import React, {Component} from 'react';
 import  './weather.css';
 import * as $ from 'jquery';
 import CircularProgress from 'material-ui/CircularProgress';
-import Search from '../menu/Search';
+import DropDown from '../menu/DropDown';
 import {inject, observer} from 'mobx-react'
 
 
-@inject("user") @observer
+@inject("user", "weather") @observer
 class Weather extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {
-            country: "",
-            city: "",
-            temp: 0,
-            errorText: "",
-            isMounted: false,
-            refresh: true,
-            date: new Date().toLocaleString()
-        }
+        /*        this.state = {
+         country: "",
+         city: "",
+         temp: 0,
+         errorText: "",
+         isMounted: false,
+         refresh: true,
+         date: new Date().toLocaleString()
+         }*/
     }
 
     getCurrentPosition(cb) {
@@ -46,13 +46,11 @@ class Weather extends Component {
             const url = "https://api.wunderground.com/api/6d5cd374a1229785/conditions/q/" + result.coords.latitude + ',' + result.coords.longitude + ".json";
             $.getJSON(url)
                 .done((data) => {
-                    self.setState({
-                        country: data.current_observation.display_location.state_name,
-                        city: data.current_observation.display_location.city,
-                        temp: Math.floor(data.current_observation.temp_c),
-                        isMounted: true,
-                        refresh: false
-                    });
+                    this.props.weather.data.country = data.current_observation.display_location.state_name;
+                    this.props.weather.data.city = data.current_observation.display_location.city;
+                    this.props.weather.data.temp = Math.floor(data.current_observation.temp_c);
+                    this.props.weather.data.isMounted = true;
+                    this.props.weather.data.refresh = false;
                 })
                 .fail((error) => {
                     const reqFailed = document.getElementsByClassName('request-failed');
@@ -68,28 +66,33 @@ class Weather extends Component {
         document.body.classList.remove("bodyWeather");
     }
 
+    componentDidMount() {
+        const menuItems = document.querySelectorAll('.menu');
+        menuItems[0].classList.add('active');
+    }
+
     render() {
         return (
             <section>
-                <Search />
+                <DropDown />
                 <section className="weather-container">
                     <section className="refresh">
                         {
-                            this.state.refresh &&
+                            this.props.weather.data.refresh &&
                             <CircularProgress size={60} thickness={7} color="#ffd200"/>
                         }
                     </section>
 
                     {
-                        this.state.isMounted &&
+                        this.props.weather.data.isMounted &&
                         <section className="data-of-temp">
-                            <p className="location">{this.state.country}, {this.state.city}</p>
-                            <p className="temperature">{this.state.temp}&deg;</p>
-                            <p className="date">{this.state.date}</p>
+                            <p className="location">{this.props.weather.data.country}, {this.props.weather.data.city}</p>
+                            <p className="temperature">{this.props.weather.data.temp}&deg;</p>
+                            <p className="date">{this.props.weather.data.date}</p>
                         </section>
                     }
                     <section className="request-failed">
-                        <p>{this.state.errorText}</p>
+                        {/*<p>{this.state.errorText}</p>*/}
                     </section>
                 </section>
             </section>

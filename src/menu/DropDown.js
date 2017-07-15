@@ -1,8 +1,9 @@
 import React from 'react';
-import './search.css';
+import './drop-down.css';
 import MenuItem from 'material-ui/MenuItem';
 import DropDownMenu from 'material-ui/DropDownMenu';
 import {inject} from 'mobx-react';
+import * as $ from "jquery";
 
 const cities = {
     1: "Minsk",
@@ -14,7 +15,7 @@ const cities = {
 }
 
 
-@inject("user")
+@inject("user", "weather")
 class Search extends React.Component {
 
     constructor(props) {
@@ -31,15 +32,32 @@ class Search extends React.Component {
 
 
     onClick = () => {
-        this.props.user.city = cities[this.state];
+        const self = this;
+        const url = "https://api.wunderground.com/api/6d5cd374a1229785/conditions/q/BY/"+ cities[this.state.value] + ".json";
+        $.getJSON(url)
+            .done((data) => {
+                this.props.weather.data.country = data.current_observation.display_location.state_name;
+                this.props.weather.data.city = data.current_observation.display_location.city;
+                this.props.weather.data.temp = Math.floor(data.current_observation.temp_c);
+                this.props.weather.data.isMounted = true;
+                this.props.weather.data.refresh = false;
+
+            })
+            .fail((error) => {
+                const reqFailed = document.getElementsByClassName('request-failed');
+                self.setState({
+                    errorText: error
+                });
+                reqFailed[0].style.display = 'block';
+            })
     }
 
     render() {
         return (
-            <section className="search">
+            <section className="drop-down">
                 <DropDownMenu value={this.state.value} onChange={this.handleChange}>
                     <MenuItem onClick={this.onClick} value={1} primaryText="Minsk"/>
-                    <MenuItem onClick={this.onClick} value={2} primaryText="Brest"/>
+                    <MenuItem onClick={this.onClick.bind(this)} value={2} primaryText="Brest"/>
                     <MenuItem onClick={this.onClick} value={3} primaryText="Vitebsk"/>
                     <MenuItem onClick={this.onClick} value={4} primaryText="Grodno"/>
                     <MenuItem onClick={this.onClick} value={5} primaryText="Gomel"/>
