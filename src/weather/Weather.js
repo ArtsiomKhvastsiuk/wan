@@ -4,6 +4,7 @@ import * as $ from 'jquery';
 import CircularProgress from 'material-ui/CircularProgress';
 import DropDown from '../menu/DropDown';
 import {inject, observer} from 'mobx-react'
+import Logo from '../menu/Logo';
 
 
 @inject("user", "weather") @observer
@@ -74,6 +75,7 @@ class Weather extends Component {
     render() {
         return (
             <section>
+                <Logo />
                 <DropDown />
                 <section className="weather-container">
                     <section className="refresh">
