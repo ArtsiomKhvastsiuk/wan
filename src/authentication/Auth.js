@@ -4,6 +4,7 @@ import './auth.css';
 import {inject, observer} from 'mobx-react';
 
 @inject("user")
+    @inject("menu") @observer
 class Authentication extends Component {
     constructor(props) {
         super(props);
@@ -35,6 +36,10 @@ class Authentication extends Component {
     handleBlur(inputName, event){
         const label = event.target.parentElement;
         label.children[0].src = require("./img/" + inputName + ".png");
+    }
+
+    close(){
+        this.props.menu.popUp = '';
     }
 
     handleChange(inputName, event) {
@@ -71,26 +76,31 @@ class Authentication extends Component {
 
     render() {
         return (
-            <section className="form">
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                    <label>
-                        <img src={require("./img/login.png")} alt="login"/>
-                        <input type="text" className="" placeholder="Login"
-                               ref={(username) => this.username = username}
-                               onChange={this.handleChange.bind(this, 'username')}
-                               onFocus={this.handleFocus.bind(this, 'login')}
-                               onBlur={this.handleBlur.bind(this, 'login')}/>
-                    </label><br/>
-                    <label>
-                        <img src={require("./img/password.png")} alt="password"/>
-                        <input type="password" className="" placeholder="Password"
-                               ref={(password) => this.password = password}
-                               onChange={this.handleChange.bind(this, 'password')}
-                               onFocus={this.handleFocus.bind(this, 'password')}
-                               onBlur={this.handleBlur.bind(this, 'password')}/>
-                    </label><br/>
-                    <input  type="submit" className="button" value="SIGN IN" />
-                </form>
+            <section>
+                <section className="overlay" onClick={this.close.bind(this)}> </section>
+                            <section className="auth-form-container">
+                                <p className="text">Please sign in</p>
+                                <form onSubmit={this.handleSubmit.bind(this)}>
+                                    <label>
+                                        <img src={require("./img/login.png")} alt="login"/>
+                                        <input type="text" className="" placeholder="Login"
+                                               ref={(username) => this.username = username}
+                                               onChange={this.handleChange.bind(this, 'username')}
+                                               onFocus={this.handleFocus.bind(this, 'login')}
+                                               onBlur={this.handleBlur.bind(this, 'login')}/>
+                                    </label><br/>
+                                    <label>
+                                        <img src={require("./img/password.png")} alt="password"/>
+                                        <input type="password" className="" placeholder="Password"
+                                               ref={(password) => this.password = password}
+                                               onChange={this.handleChange.bind(this, 'password')}
+                                               onFocus={this.handleFocus.bind(this, 'password')}
+                                               onBlur={this.handleBlur.bind(this, 'password')}/>
+                                    </label><br/>
+                                    <input  type="submit" className="button" value="SIGN IN" />
+                                </form>
+                            </section>
+
             </section>
         )
     }

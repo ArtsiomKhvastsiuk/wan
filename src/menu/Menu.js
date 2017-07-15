@@ -4,16 +4,24 @@ import {Link} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 
 @inject("user") @observer
+@inject("menu") @observer
 class Menu extends Component {
 
     isPressed(event) {
-        const menuItems = document.querySelectorAll('.menu');
-        for (let i = 0; i < menuItems.length; i++) {
-            if (event.target === menuItems[i]) {
-                menuItems[i].classList.add('active');
-            } else menuItems[i].classList.remove('active');
+        if (event.target.classList.contains('pop-up')){
+            this.props.menu.popUp = event.target.id;
+        }
+        else {
+            event.target.classList.add('active');
+            const menuItems = document.querySelectorAll('.menu');
+            for (let i=0; i<menuItems.length; i++){
+                if (menuItems[i]!==event.target){
+                    menuItems[i].classList.remove('active');
+                }
+            }
         }
     }
+
 
     render() {
         return (
@@ -27,8 +35,8 @@ class Menu extends Component {
                 {
                     !this.props.user.isAuthenticated &&
                         <section className="signup-in">
-                            <Link onClick={this.isPressed.bind(this)} className="menu" to="/signup">sign up</Link>
-                            <Link onClick={this.isPressed.bind(this)} className="menu" to="/signin">sign in</Link>
+                            <a onClick={this.isPressed.bind(this)} className="menu pop-up" id="signUp">sign up</a>
+                            <a onClick={this.isPressed.bind(this)} className="menu pop-up" id="signIn">sign in</a>
                         </section>
                 }
 

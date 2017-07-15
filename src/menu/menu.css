@@ -11,6 +11,7 @@ a {
     font-size: 13px;
     letter-spacing: 1px;
     color: #585858;
+    cursor: pointer;
 }
 
 header {
@@ -27,6 +28,11 @@ header {
     display: inline-block;
     float: left;
 }
+
+/*a:focus{*/
+    /*border-bottom: 0px solid #fff !important;*/
+    /*color: #ffd200;*/
+/*}*/
 
 .active {
     border-bottom: 0px solid #fff !important;

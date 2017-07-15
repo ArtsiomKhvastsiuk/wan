@@ -1,12 +1,15 @@
 import React from 'react';
 import './app.css';
+import Auth from '../authentication/Auth.js';
+import Register from '../register/Register.js';
 import * as $ from 'jquery';
-import {inject} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
 
-import Menu from '../menu/Menu';
 import AlertBox from '../helpers/AlertBox';
 
 @inject("user")
+@inject ("menu") @observer
+
 class App extends React.Component {
     constructor(props) {
         super(props);
@@ -26,6 +29,7 @@ class App extends React.Component {
                     alert("App.js - error - /check-auth");
                 })
         }
+
     }
 
     componentDidMount() {
@@ -40,6 +44,8 @@ class App extends React.Component {
                     { this.props.user.alertFlag && <AlertBox /> }
                     <p>wan</p>
                 </main>
+                { this.props.menu.popUp==='signIn' && <Auth />}
+                { this.props.menu.popUp==='signUp' && <Register />}
             </section>
         )
     }

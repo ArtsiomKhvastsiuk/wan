@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import * as $ from 'jquery';
 import './register.css';
-import {inject} from 'mobx-react'
+import {inject, observer} from 'mobx-react'
 
 @inject("user")
+@inject("menu") @observer
 class Register extends Component {
     constructor(props) {
         super(props);
@@ -23,14 +24,24 @@ class Register extends Component {
             })
     }
 
+    close(){
+        this.props.menu.popUp = '';
+    }
+
+    componentWillUnmount(){
+        this.props.menu.popUp = '';
+    }
+
      handleFocus(inputName, event) {
         const label = event.target.parentElement;
         label.children[0].src = require("./img/" + inputName + "1" + ".png");
+        label.classList.add('label-active');
      };
 
     handleBlur(inputName, event){
         const label = event.target.parentElement;
         label.children[0].src = require("./img/" + inputName + ".png");
+        label.classList.remove('label-active');
     }
 
     handleChange(inputName, event) {
@@ -102,36 +113,42 @@ class Register extends Component {
 
     render() {
         return (
-            <section className="form">
-                <p className="text">Create your account now</p>
-                <form onSubmit={this.handleSubmit.bind(this)}>
-                    <label>
-                        <img src={require("./img/login.png")} alt="login"/>
-                        <input type="text" className="" placeholder="Login"
-                               ref={(username) => this.username = username}
-                               onChange={this.handleChange.bind(this, 'username')}
-                               onFocus={this.handleFocus.bind(this, 'login')}
-                               onBlur={this.handleBlur.bind(this, 'login')}/>
-                    </label><br/>
-                    <label>
-                        <img src={require("./img/password.png")} alt="password"/>
-                        <input type="password" className="" placeholder="Password"
-                               ref={(password) => this.password = password}
-                               onChange={this.handleChange.bind(this, 'password')}
-                               onFocus={this.handleFocus.bind(this, 'password')}
-                               onBlur={this.handleBlur.bind(this, 'password')}/>
-                    </label><br/>
-                    <label>
-                        <img src={require("./img/email.png")} alt="email"/>
-                        <input type="text" className="" placeholder="Email address"
-                               ref={(email) => this.email = email}
-                               onChange={this.handleChange.bind(this, 'email')}
-                               onFocus={this.handleFocus.bind(this, 'email')}
-                               onBlur={this.handleBlur.bind(this, 'email')}/>
-                    </label><br/>
-                    <input type="submit" className="button" value="SIGN UP"/>
-                </form>
-                <p>Already have an account? <a className="login" href="/signin">Login</a></p>
+            <section>
+                <section className="overlay" onClick={this.close.bind(this)}> </section>
+                    <section className="reg-form-container">
+                        <img src={require("./img/registerPic.png")} alt="1" id="regPic"/>
+                        <section className="form">
+                            <p className="text">Create your account now</p>
+                            <form onSubmit={this.handleSubmit.bind(this)}>
+                                <label>
+                                    <img src={require("./img/login.png")} alt="login"/>
+                                    <input type="text" className="" placeholder="Login"
+                                           ref={(username) => this.username = username}
+                                           onChange={this.handleChange.bind(this, 'username')}
+                                           onFocus={this.handleFocus.bind(this, 'login')}
+                                           onBlur={this.handleBlur.bind(this, 'login')}/>
+                                </label><br/>
+                                <label>
+                                    <img src={require("./img/password.png")} alt="password"/>
+                                    <input type="password" className="" placeholder="Password"
+                                           ref={(password) => this.password = password}
+                                           onChange={this.handleChange.bind(this, 'password')}
+                                           onFocus={this.handleFocus.bind(this, 'password')}
+                                           onBlur={this.handleBlur.bind(this, 'password')}/>
+                                </label><br/>
+                                <label>
+                                    <img src={require("./img/email.png")} alt="email"/>
+                                    <input type="text" className="" placeholder="Email address"
+                                           ref={(email) => this.email = email}
+                                           onChange={this.handleChange.bind(this, 'email')}
+                                           onFocus={this.handleFocus.bind(this, 'email')}
+                                           onBlur={this.handleBlur.bind(this, 'email')}/>
+                                </label><br/>
+                                <input type="submit" className="button" value="SIGN UP"/>
+                            </form>
+                            <p>Already have an account? <a className="login" href="/signin">Login</a></p>
+                       </section>
+                    </section>
             </section>
         )
     }

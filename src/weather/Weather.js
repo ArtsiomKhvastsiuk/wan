@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import  './weather.css';
+import Auth from '../authentication/Auth.js';
+import Register from '../register/Register.js';
 import * as $ from 'jquery';
 import CircularProgress from 'material-ui/CircularProgress';
 import DropDown from '../menu/DropDown';
@@ -8,6 +10,7 @@ import Logo from '../menu/Logo';
 
 
 @inject("user", "weather") @observer
+    @inject ("menu") @observer
 class Weather extends Component {
 
     constructor(props) {
@@ -87,6 +90,8 @@ class Weather extends Component {
                     <section className="request-failed">
                         {/*<p>{this.state.errorText}</p>*/}
                     </section>
+                    { this.props.menu.popUp==='signIn' && <Auth />}
+                    { this.props.menu.popUp==='signUp' && <Register />}
                 </section>
             </section>
         )

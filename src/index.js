@@ -20,8 +20,14 @@ class Weather {
     }
 }
 
+
 let weather = new Weather();
+
+class Menu{
+    @observable popUp = '';
+}
+ let menu = new Menu();
 
 let user = new User();
 
-ReactDOM.render(<Routes user={user} weather={weather}/>, document.getElementById('root'));
+ReactDOM.render(<Routes user={user} weather={weather} menu={menu}/>, document.getElementById('root'));
