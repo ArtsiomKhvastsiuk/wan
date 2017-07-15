@@ -10,7 +10,7 @@ class Register extends Component {
     }
 
     componentWillMount() {
-        $.get('http://localhost:3001/api/check-auth')
+        $.get('/api/check-auth')
             .done((res) => {
                 if (res.status) {
                     this.props.user.isAuthenticated = true;
@@ -48,7 +48,7 @@ class Register extends Component {
     handleSubmit(event) {
         const self = this;
         event.preventDefault();
-        $.post("http://localhost:3001/api/signup", {
+        $.post("/api/signup", {
             username: this.username.value,
             password: this.password.value,
             email: this.email.value

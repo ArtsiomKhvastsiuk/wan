@@ -53,6 +53,6 @@ app.use('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, '..', 'build', 'index.html'));
 });
 
-app.listen(3001, function () {
-    console.log('Example app listening on port 3001!');
+app.listen(8081, function () {
+    console.log('Example app listening on port 8081!');
 });

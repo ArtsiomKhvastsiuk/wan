@@ -14,7 +14,7 @@ class Authentication extends Component {
     }
 
     componentWillMount() {
-        $.get('http://localhost:3001/api/check-auth')
+        $.get('/api/check-auth')
             .done((res) => {
                 if (res.status) {
                     this.props.user.isAuthenticated = true;
@@ -43,7 +43,7 @@ class Authentication extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        $.post("http://localhost:3001/api/signin", {
+        $.post("/api/signin", {
             username: this.username.value,
             password: this.password.value,
         })

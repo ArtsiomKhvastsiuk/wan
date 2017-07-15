@@ -12,15 +12,6 @@ class Weather extends Component {
 
     constructor(props) {
         super(props);
-        /*        this.state = {
-         country: "",
-         city: "",
-         temp: 0,
-         errorText: "",
-         isMounted: false,
-         refresh: true,
-         date: new Date().toLocaleString()
-         }*/
     }
 
     getCurrentPosition(cb) {
