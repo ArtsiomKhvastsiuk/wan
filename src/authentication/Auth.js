@@ -20,11 +20,11 @@ class Authentication extends Component {
                 if (res.status) {
                     this.props.user.isAuthenticated = true;
                     this.props.user.alertFlag = true;
-                    this.props.history.push('/');
+                    window.location = "http://localhost:3000";
                 }
             })
             .fail((error) => {
-                this.props.history.push('/error');
+                window.location = "http://localhost:3000/error";
             })
     }
 
@@ -57,7 +57,7 @@ class Authentication extends Component {
                     this.username.value = "";
                     this.password.value = "";
                     this.props.user.isAuthenticated = true;
-                    this.props.history.push('/');
+                    window.location = "http://localhost:3000";
                     return;
                 } else if (res.errno === 2) {
                     alert("Incorrect username");
@@ -70,7 +70,7 @@ class Authentication extends Component {
                 alert("Missing credentials");
             })
             .fail((error) => {
-                this.props.history.push('/error');
+                window.location = "http://localhost:3000/error";
             })
     }
 

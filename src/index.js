@@ -20,13 +20,13 @@ class Weather {
     }
 }
 
-
-let weather = new Weather();
-
 class Menu{
     @observable popUp = '';
 }
- let menu = new Menu();
+
+let weather = new Weather();
+
+let menu = new Menu();
 
 let user = new User();
 
