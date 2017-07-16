@@ -9,7 +9,7 @@ const cities = {
     1: "Minsk",
     2: "Brest",
     3: "Vitebsk",
-    4: "Grodno",
+    4: "Hrodna",
     5: "Gomel",
     6: "Pinsk"
 }
