@@ -15,16 +15,16 @@ class Authentication extends Component {
     }
 
     componentWillMount() {
-        $.get('/api/check-auth')
+        $.get('http://localhost:3001/api/check-auth')
             .done((res) => {
                 if (res.status) {
                     this.props.user.isAuthenticated = true;
                     this.props.user.alertFlag = true;
-                    window.location = "http://localhost:3000";
+                    window.location = "http://localhost:3001";
                 }
             })
             .fail((error) => {
-                window.location = "http://localhost:3000/error";
+                window.location = "http://localhost:3001/error";
             })
     }
 
@@ -48,7 +48,7 @@ class Authentication extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        $.post("/api/signin", {
+        $.post("http://localhost:3001/api/signin", {
             username: this.username.value,
             password: this.password.value,
         })
@@ -57,7 +57,7 @@ class Authentication extends Component {
                     this.username.value = "";
                     this.password.value = "";
                     this.props.user.isAuthenticated = true;
-                    window.location = "http://localhost:3000";
+                    window.location = "http://localhost:3001";
                     return;
                 } else if (res.errno === 2) {
                     alert("Incorrect username");
@@ -70,7 +70,7 @@ class Authentication extends Component {
                 alert("Missing credentials");
             })
             .fail((error) => {
-                window.location = "http://localhost:3000/error";
+                window.location = "http://localhost:3001/error";
             })
     }
 

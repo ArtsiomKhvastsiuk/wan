@@ -5,6 +5,7 @@
   "dependencies": {
     "bcrypt": "^1.0.2",
     "bcrypt-nodejs": "0.0.3",
+    "level": "^1.7.0",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "save-dev": "^2.0.0"
@@ -48,6 +49,7 @@
     "object-assign": "4.1.1",
     "osmosis": "^1.1.4",
     "passport": "^0.3.2",
+    "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
     "postcss-flexbugs-fixes": "3.0.0",
     "postcss-loader": "2.0.5",

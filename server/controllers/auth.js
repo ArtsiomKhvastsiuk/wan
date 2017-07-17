@@ -1,6 +1,6 @@
 const User = require('../models/user');
 
-exports.register = function (req, res) {
+exports.register = function (req, res, next) {
     const username = req.body.username;
     const password = req.body.password;
     const email = req.body.email;
