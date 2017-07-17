@@ -96,7 +96,6 @@ class Weather extends Component {
             </section>
         )
     }
-
 }
 
 export default Weather;

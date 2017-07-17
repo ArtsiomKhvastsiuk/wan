@@ -33,7 +33,7 @@ passport.use(new LocalStrategy(
 passport.use(new GoogleStrategy({
     clientID: '952020583525-0co2v6grosh05nnm86j6e1pe9q5qkc96.apps.googleusercontent.com',
     clientSecret: 'DagUUAD-MWc9R5YDxicI21tB',
-    callbackURL: "http://localhost:3001/api/auth/google/callback"
+    callbackURL: "https://inatmospheric.tk/api/auth/google/callback"
 }, (accessToken, refreshToken, profile, done) => {
     User.findOne({'google_id': profile.id})
         .then((user) => {

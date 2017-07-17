@@ -11,16 +11,16 @@ class Register extends Component {
     }
 
     componentWillMount() {
-        $.get('http://localhost:3001/api/check-auth')
+        $.get('/api/check-auth')
             .done((res) => {
                 if (res.status) {
                     this.props.user.isAuthenticated = true;
                     this.props.user.alertFlag = true;
-                    window.location = "http://localhost:3001";
+                    window.location = "/";
                 }
             })
             .fail((error) => {
-                window.location = "http://localhost:3001/error";
+                window.location = "/error";
             })
     }
 
@@ -64,7 +64,7 @@ class Register extends Component {
     handleSubmit(event) {
         const self = this;
         event.preventDefault();
-        $.post("http://localhost:3001/api/signup", {
+        $.post("/api/signup", {
             username: this.username.value,
             password: this.password.value,
             email: this.email.value
@@ -81,7 +81,7 @@ class Register extends Component {
                     this.password.value = "";
                     this.email.value = "";
                     this.props.user.isAuthenticated = true;
-                    window.location = "http://localhost:3001/profile";
+                    window.location = "/profile";
                     alert("You've successfully registered");
                     return;
                 }
@@ -113,7 +113,7 @@ class Register extends Component {
 
                 // critical error
                 //self.props.history.push('/error');
-                window.location = "http://localhost:3001/error";
+                window.location = "/error";
             })
     }
 

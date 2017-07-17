@@ -31,7 +31,7 @@ class Menu extends Component {
 
     handleClick(value, event) {
         if (value === "signout")
-        $.get("http://localhost:3001/api/logout")
+        $.get("/api/logout")
             .done((res) => {
                 this.props.user.isAuthenticated = false;
                 this.props.history.push('/');

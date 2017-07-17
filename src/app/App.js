@@ -17,7 +17,7 @@ class App extends React.Component {
 
     componentWillMount() {
         if (!this.props.user.isAuthenticated) {
-            $.get("http://localhost:3001/api/check-auth")
+            $.get("/api/check-auth")
                 .done((res) => {
                     if (res.status) {
                         this.props.user.isAuthenticated = true;
