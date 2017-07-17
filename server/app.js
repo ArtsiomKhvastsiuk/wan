@@ -54,5 +54,5 @@ app.use('*', (req, res) => {
 });
 
 app.listen(3001, function () {
-    console.log('Example app listening on port 3001np!');
+    console.log('Example app listening on port 3001!');
 });

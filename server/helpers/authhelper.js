@@ -1,4 +1,5 @@
 const passport = require('passport');
+const User = require('../models/user');
 
 exports.authenticate = (name, options) => (req, res, next) => {
     passport.authenticate(name, options, (error, user, info) => {
@@ -26,7 +27,18 @@ exports.authenticate = (name, options) => (req, res, next) => {
 
 exports.oauthCallbackAuthenticate = (name, options) => (req, res, next) => {
     passport.authenticate(name, options, (error, user, info) => {
-        debugger;
+        "use strict";
+        if (error) {
+            return next(error);
+        }
+        const username = info.google.name;
+        const newUser = new User(Object.assign({username}, info));
+        newUser.save()
+            .then((user) => {
+                req.logIn(user, function () {
+                    res.json({message: '', message_code: 1, result: true});
+                });
+            })
     })(req, res, next);
 };
 

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 const Schema = require('mongoose').Schema;
 const ValidationError = mongoose.Error.ValidationError;
 
@@ -9,18 +9,21 @@ const UserSchema = new Schema({
             index: true,
             required: true,
             unique: true,
-            match: /^[\w@$!%*#?&]{2,32}$/
+            /*match: /^[\w@$!%*#?&]{2,32}$/*/
         },
         password: {
             type: String,
-            required: true
         },
         email: {
             type: String,
             index: true,
-            required: true,
             unique: true,
             match : /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        },
+        google: {
+            id: String,
+            name: String,
+            emails: Array,
         }
     },
     {
