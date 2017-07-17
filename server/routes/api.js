@@ -29,5 +29,10 @@ api.get('/check-auth', (req, res) => {
     }
 });
 
+api.get('/logout', (req, res) => {
+    req.logout();
+    res.json({result: true});
+});
+
 
 module.exports = api;

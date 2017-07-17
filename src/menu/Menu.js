@@ -2,6 +2,13 @@ import './menu.css';
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
+import * as $ from "jquery";
+
+import IconMenu from 'material-ui/IconMenu';
+import MenuItem from 'material-ui/MenuItem';
+import IconButton from 'material-ui/IconButton';
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import Divider from 'material-ui/Divider';
 
 @inject("user") @observer
 @inject("menu") @observer
@@ -22,15 +29,42 @@ class Menu extends Component {
         }
     }
 
+    handleClick(value, event) {
+        if (value === "signout")
+        $.get("http://localhost:3001/api/logout")
+            .done((res) => {
+                this.props.user.isAuthenticated = false;
+                this.props.history.push('/');
+            })
+            .fail((error) => {
+
+            })
+    }
+
 
     render() {
         return (
+            <section>
+                <section className="icon">
+                    {
+                        this.props.user.isAuthenticated &&
+                        <IconMenu
+                            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                        >
+                            <MenuItem primaryText="Profile" />
+                            <MenuItem primaryText="Settings" />
+                            <Divider />
+                            <MenuItem onClick={this.handleClick.bind(this, "signout")} primaryText="Sign out" />
+                        </IconMenu>
+
+                    }
+                </section>
             <header>
 
                     <Link onClick={this.isPressed.bind(this)} className="menu" to="/weather">weather</Link>
                     <Link onClick={this.isPressed.bind(this)} className="menu" to="/news">news</Link>
                     <Link onClick={this.isPressed.bind(this)} className="menu" to="/about">about</Link>
-
 
                 {
                     !this.props.user.isAuthenticated &&
@@ -40,16 +74,11 @@ class Menu extends Component {
                         </section>
                 }
 
-                {
-                    this.props.user.isAuthenticated &&
-                        <section className="signup-in">
-                            <Link onClick={this.isPressed.bind(this)} className="menu" to="/profile">
-                                <img className="profile-img" src={require("./img/profile2.png")} alt="password"/>
-                            </Link>
-                        </section>
-                }
+
 
             </header>
+
+            </section>
         )
     }
 }

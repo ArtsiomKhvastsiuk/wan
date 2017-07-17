@@ -117,6 +117,8 @@ class Register extends Component {
             })
     }
 
+
+
     render() {
         return (
             <section>
@@ -153,6 +155,7 @@ class Register extends Component {
                             <input type="submit" className="button" value="SIGN UP"/>
                         </form>
                         <p>Already have an account? <a className="login" href="/signin">Login</a></p>
+                        <a href="api/auth/google">Sign In with Google</a>
                     </section>
                 </section>
             </section>
