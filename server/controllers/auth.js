@@ -23,6 +23,11 @@ exports.register = function (req, res, next) {
 
             user.save()
                 .then(() => {
+                    req.logIn(user, function(err) {
+                        if (err) {
+                            return next(err);
+                        }
+                    });
                     return res.json({result: true})
                 })
                 .catch((error) => {
