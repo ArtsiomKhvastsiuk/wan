@@ -11,7 +11,7 @@ const api = express.Router();
 /* Local Auth */
 api.post('/signup', controller.register);
 api.post('/signin', authhelper.authenticate('local'), (req, res) => {
-    res.json({ result: true });
+    res.json({result: true});
 });
 
 
@@ -31,7 +31,7 @@ api.get('/check-auth', (req, res) => {
 
 api.get('/logout', (req, res) => {
     req.logout();
-    res.json({result: true});
+    res.json({status: true});
 });
 
 
