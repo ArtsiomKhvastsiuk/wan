@@ -29,6 +29,14 @@ api.get('/check-auth', (req, res) => {
     }
 });
 
+api.get('/profile', (req, res) => {
+    if (req.user) {
+        res.json({status: true, user: req.user});
+    } else {
+        res.json({status: false})
+    }
+});
+
 api.get('/logout', (req, res) => {
     req.logout();
     res.json({status: true});

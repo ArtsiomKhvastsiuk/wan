@@ -5,8 +5,11 @@ import './index.css';
 import {observable} from "mobx";
 
 class User {
+
     @observable isAuthenticated = false;
     @observable alertFlag = false;
+    @observable username = null;
+    @observable email = null;
 }
 
 class Weather {
