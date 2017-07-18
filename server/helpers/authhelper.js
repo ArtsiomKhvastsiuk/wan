@@ -31,14 +31,24 @@ exports.oauthCallbackAuthenticate = (name, options) => (req, res, next) => {
         if (error) {
             return next(error);
         }
-        const username = info.google.name;
-        const newUser = new User(Object.assign({username}, info));
-        newUser.save()
-            .then((user) => {
-                req.logIn(user, function () {
-                    res.json({message: '', message_code: 1, result: true});
-                });
-            })
+        if (!user) {
+            const username = info.google.name;
+            const newUser = new User(Object.assign({username}, info));
+            newUser.save()
+                .then((user) => {
+                    req.logIn(user, function () {
+                        next();
+                    });
+                })
+                .catch((error) => {
+                    return next(error);
+                })
+        } else {
+            req.logIn(user, function() {
+                next();
+            });
+        }
+
     })(req, res, next);
 };
 

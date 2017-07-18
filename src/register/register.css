@@ -7,7 +7,6 @@
     bottom: 0;
     left: 0;
     margin: auto;
-    /*background-color: #f7f6f6;*/
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
     background-color: white;
     border-radius: 10px;
@@ -34,10 +33,9 @@ label {
 }
 
 input {
-    /*background-color: #f7f6f6;*/
     width: 215px;
     height: 40px;
-    border: 0px solid white;
+    border: none;
 }
 
 :focus::-webkit-input-placeholder {color: #bcdae7}

@@ -35,7 +35,7 @@ passport.use(new GoogleStrategy({
     clientSecret: 'DagUUAD-MWc9R5YDxicI21tB',
     callbackURL: "https://inatmospheric.tk/api/auth/google/callback"
 }, (accessToken, refreshToken, profile, done) => {
-    User.findOne({'google_id': profile.id})
+    User.findOne({'google.id': profile.id})
         .then((user) => {
             return done(null, user, {
                 google: {
