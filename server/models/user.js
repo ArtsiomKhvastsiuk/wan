@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt-nodejs');
+const bcrypt = require('bcrypt');
 const Schema = require('mongoose').Schema;
 const ValidationError = mongoose.Error.ValidationError;
 
