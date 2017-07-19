@@ -15,14 +15,14 @@ import Divider from 'material-ui/Divider';
 class Menu extends Component {
 
     isPressed(event) {
-        if (event.target.classList.contains('pop-up')){
+        if (event.target.classList.contains('pop-up')) {
             this.props.menu.popUp = event.target.id;
         }
         else {
             event.target.classList.add('active');
             const menuItems = document.querySelectorAll('.menu');
-            for (let i=0; i<menuItems.length; i++){
-                if (menuItems[i]!==event.target){
+            for (let i = 0; i < menuItems.length; i++) {
+                if (menuItems[i] !== event.target) {
                     menuItems[i].classList.remove('active');
                 }
             }
@@ -31,14 +31,26 @@ class Menu extends Component {
 
     handleClick(value, event) {
         if (value === "signout")
+<<<<<<< HEAD
         $.get("/api/logout")
             .done((res) => {
                 this.props.user.isAuthenticated = false;
                 this.props.history.push('/');
             })
             .fail((error) => {
+=======
+            $.get("http://localhost:3001/api/logout")
+                .done((res) => {
+                    this.props.user.isAuthenticated = false;
+                    window.location = "http://localhost:3001/";
+                })
+                .fail((error) => {
+>>>>>>> master
 
-            })
+                })
+        if (value === "profile") {
+            window.location = "http://localhost:3001/profile";
+        }
     }
 
 
@@ -52,31 +64,30 @@ class Menu extends Component {
                             iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
                             anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
                         >
-                            <MenuItem primaryText="Profile" />
-                            <MenuItem primaryText="Settings" />
+                            <MenuItem onClick={this.handleClick.bind(this, "profile")} primaryText="Profile"/>
+                            <MenuItem primaryText="Settings"/>
                             <Divider />
-                            <MenuItem onClick={this.handleClick.bind(this, "signout")} primaryText="Sign out" />
+                            <MenuItem onClick={this.handleClick.bind(this, "signout")} primaryText="Sign out"/>
                         </IconMenu>
 
                     }
                 </section>
-            <header>
+                <header>
 
                     <Link onClick={this.isPressed.bind(this)} className="menu" to="/weather">weather</Link>
                     <Link onClick={this.isPressed.bind(this)} className="menu" to="/news">news</Link>
                     <Link onClick={this.isPressed.bind(this)} className="menu" to="/about">about</Link>
 
-                {
-                    !this.props.user.isAuthenticated &&
+                    {
+                        !this.props.user.isAuthenticated &&
                         <section className="signup-in">
                             <a onClick={this.isPressed.bind(this)} className="menu pop-up" id="signUp">sign up</a>
                             <a onClick={this.isPressed.bind(this)} className="menu pop-up" id="signIn">sign in</a>
                         </section>
-                }
+                    }
 
 
-
-            </header>
+                </header>
 
             </section>
         )
