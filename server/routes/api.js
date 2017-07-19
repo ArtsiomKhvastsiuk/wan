@@ -37,6 +37,24 @@ api.get('/profile', (req, res) => {
     }
 });
 
+api.post('/check-username', (req, res) => {
+    const username = req.body.username;
+    if (!username) {
+        return res.json({result: false});
+    }
+    User.findOne({username}, null, {collation: {locale: 'en', strength: 2}})
+        .then((user) => {
+            if (user) {
+                return res.json({result: false});
+            } else {
+                return res.json({result: true});
+            }
+        })
+        .catch((error) => {
+            return res.json({error: error});
+        })
+});
+
 api.get('/logout', (req, res) => {
     req.logout();
     res.json({status: true});
