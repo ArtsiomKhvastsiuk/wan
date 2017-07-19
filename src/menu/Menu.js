@@ -31,26 +31,27 @@ class Menu extends Component {
 
     handleClick(value, event) {
         if (value === "signout")
-<<<<<<< HEAD
-        $.get("/api/logout")
-            .done((res) => {
-                this.props.user.isAuthenticated = false;
-                this.props.history.push('/');
-            })
-            .fail((error) => {
-=======
-            $.get("http://localhost:3001/api/logout")
+
+            $.get("/api/logout")
                 .done((res) => {
                     this.props.user.isAuthenticated = false;
-                    window.location = "http://localhost:3001/";
+                    this.props.history.push('/');
                 })
                 .fail((error) => {
->>>>>>> master
 
+                    $.get("http://localhost:3001/api/logout")
+                        .done((res) => {
+                            this.props.user.isAuthenticated = false;
+                            window.location = "http://localhost:3001/";
+                        })
+                        .fail((error) => {
+
+
+                        })
+                    if (value === "profile") {
+                        window.location = "http://localhost:3001/profile";
+                    }
                 })
-        if (value === "profile") {
-            window.location = "http://localhost:3001/profile";
-        }
     }
 
 

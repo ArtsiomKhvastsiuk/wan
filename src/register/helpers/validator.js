@@ -1,7 +1,7 @@
 import * as $ from 'jquery';
 
 export function checkUsername (username, cb) {
-    $.post('http://localhost:3001/api/check-username', {
+    $.post('/api/check-username', {
         username
     })
         .done((res) => {
