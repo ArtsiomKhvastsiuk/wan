@@ -3,8 +3,11 @@ import * as $ from 'jquery';
 import './register.css';
 import {inject, observer} from 'mobx-react'
 
+import Popover from './Popover';
+import * as validator from './helpers/validator';
+
 @inject("user")
-@inject("menu") @observer
+@inject("menu", "form") @observer
 class Register extends Component {
     constructor(props) {
         super(props);
@@ -40,24 +43,77 @@ class Register extends Component {
         const label = event.target.parentElement;
         label.children[0].src = require("./img/" + inputName + "1" + ".png");
         label.classList.add('label-active');
-
     };
 
     handleBlur(inputName, event) {
         const label = event.target.parentElement;
-        label.children[0].src = require("./img/" + inputName + ".png");
         label.classList.remove('label-active');
+        this.props.form.username = 0;
+        this.props.form.password = 0;
+        this.props.form.email = 0;
     }
 
     handleChange(inputName, event) {
-        if (event.target.value.trim().length > 0) {
-            this.setState({
-                [inputName]: false
-            });
-        } else {
-            this.setState({
-                [inputName]: true
-            });
+        if (inputName === "username") {
+            const username = event.target.value;
+            if (username.length > 0) {
+                const result = validator.usernameValidator(username);
+                if (result === true) {
+                    validator.checkUsername(username, (result) => {
+                        if (result === true) {
+                            this.props.form.text = "You can use this username.";
+                            this.props.form.username = 1;
+                        } else if (result === false) {
+                            // warning
+                            this.props.form.text = "This username is already used.";
+                            this.props.form.username = -1;
+                        } else {
+                            // warning
+                            this.props.form.text = "Username verification failed."
+                            this.props.form.username = -1;
+                        }
+                    })
+                } else {
+                    // warning
+                    this.props.form.text = result;
+                    this.props.form.username = -1;
+                }
+            } else {
+                this.props.form.username = 0;
+            }
+        }
+
+        if (inputName === "password") {
+            const password = event.target.value;
+            if (password.length > 0) {
+                const result = validator.passwordValidator(password);
+                if (result === true) {
+                    this.props.form.text = 'You can use this password'
+                    this.props.form.password = 1;
+                } else {
+                    this.props.form.text = result
+                    this.props.form.password = -1;
+                }
+            } else {
+                this.props.form.password = 0;
+            }
+        }
+
+        if (inputName === "email") {
+            const email = event.target.value;
+            if (email.length > 0) {
+                const result = validator.emailValidator(email);
+                if (result === true) {
+                    this.props.form.text = "It's okey";
+                    this.props.form.email = 1;
+                } else {
+                    this.props.form.email = -1;
+                    this.props.form.text = result;
+                }
+            } else {
+                this.props.form.email = 0;
+            }
+
         }
     }
 
@@ -118,7 +174,6 @@ class Register extends Component {
     }
 
 
-
     render() {
         return (
             <section>
@@ -129,7 +184,14 @@ class Register extends Component {
                         <p className="text">Create your account now</p>
                         <form onSubmit={this.handleSubmit.bind(this)}>
                             <label>
-                                <img src={require("./img/login.png")} alt="login"/>
+                                { this.props.form.username === 1 && <Popover className="ok"/> }
+                                { this.props.form.username === -1 && <Popover className="warning"/> }
+                                <img src={
+                                    this.props.form.username === 0 && require("./img/login.png") ||
+                                    this.props.form.username === -1 && require("./img/login2.png") ||
+                                    this.props.form.username === 1 && require("./img/login3.png")
+                                } alt="login"
+                                />
                                 <input type="text" className="" placeholder="Login"
                                        ref={(username) => this.username = username}
                                        onChange={this.handleChange.bind(this, 'username')}
@@ -137,7 +199,14 @@ class Register extends Component {
                                        onBlur={this.handleBlur.bind(this, 'login')}/>
                             </label><br/>
                             <label>
-                                <img src={require("./img/password.png")} alt="password"/>
+                                { this.props.form.password === 1 && <Popover className="ok"/> }
+                                { this.props.form.password === -1 && <Popover className="warning"/> }
+                                <img src={
+                                    this.props.form.password === 0 && require("./img/password.png") ||
+                                    this.props.form.password === -1 && require("./img/password2.png") ||
+                                    this.props.form.password === 1 && require("./img/password3.png")
+                                } alt="login"
+                                />
                                 <input type="password" className="" placeholder="Password"
                                        ref={(password) => this.password = password}
                                        onChange={this.handleChange.bind(this, 'password')}
@@ -145,7 +214,14 @@ class Register extends Component {
                                        onBlur={this.handleBlur.bind(this, 'password')}/>
                             </label><br/>
                             <label>
-                                <img src={require("./img/email.png")} alt="email"/>
+                                { this.props.form.email === 1 && <Popover className="ok"/> }
+                                { this.props.form.email === -1 && <Popover className="warning"/> }
+                                <img src={
+                                    this.props.form.email === 0 && require("./img/email.png") ||
+                                    this.props.form.email === -1 && require("./img/email2.png") ||
+                                    this.props.form.email === 1 && require("./img/email3.png")
+                                } alt="login"
+                                />
                                 <input type="text" className="" placeholder="Email address"
                                        ref={(email) => this.email = email}
                                        onChange={this.handleChange.bind(this, 'email')}
