@@ -29,9 +29,9 @@ label {
     display: block;
     border-bottom: 1px solid #c3c3c3;
 }
- .label-active{
-    border-bottom: 1px solid #bcdae7 !important;
-}
+ .label-active-ok {
+     border-bottom: 1px solid #5ed992 !important;
+ }
 
 input {
     width: 215px;
@@ -91,7 +91,6 @@ p {
     position: absolute;
     top: 33px;
     left: 35px;
-
 }
 
 .popover p {

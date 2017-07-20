@@ -9,9 +9,6 @@ import * as validator from './helpers/validator';
 @inject("user")
 @inject("menu", "form") @observer
 class Register extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentWillMount() {
         $.get('http://localhost:3001/api/check-auth')
@@ -64,7 +61,7 @@ class Register extends Component {
                 this.props.form.text = 'You can use this password'
                 this.props.form.password = 1;
             } else {
-                this.props.form.text = result
+                this.props.form.text = result;
                 this.props.form.password = -1;
             }
         } else {
@@ -80,8 +77,8 @@ class Register extends Component {
                 this.props.form.text = "It's okey";
                 this.props.form.email = 1;
             } else {
-                this.props.form.email = -1;
                 this.props.form.text = result;
+                this.props.form.email = -1;
             }
         } else {
             this.props.form.email = 0;
@@ -188,9 +185,9 @@ class Register extends Component {
                                 { this.props.form.username === 1 && <Popover className="ok"/> }
                                 { this.props.form.username === -1 && <Popover className="warning"/> }
                                 <img src={
-                                    this.props.form.username === 0 && require("./img/username.png") ||
-                                    this.props.form.username === -1 && require("./img/username2.png") ||
-                                    this.props.form.username === 1 && require("./img/username3.png")
+                                    (this.props.form.username === 0 && require("./img/username.png")) ||
+                                    (this.props.form.username === -1 && require("./img/username2.png")) ||
+                                    (this.props.form.username === 1 && require("./img/username3.png"))
                                 } alt="username"
                                 />
                                 <input id="inputUsername" type="text" className="" placeholder="Login"
@@ -203,9 +200,9 @@ class Register extends Component {
                                 { this.props.form.password === 1 && <Popover className="ok"/> }
                                 { this.props.form.password === -1 && <Popover className="warning"/> }
                                 <img src={
-                                    this.props.form.password === 0 && require("./img/password.png") ||
-                                    this.props.form.password === -1 && require("./img/password2.png") ||
-                                    this.props.form.password === 1 && require("./img/password3.png")
+                                    (this.props.form.password === 0 && require("./img/password.png")) ||
+                                    (this.props.form.password === -1 && require("./img/password2.png")) ||
+                                    (this.props.form.password === 1 && require("./img/password3.png"))
                                 } alt="login"
                                 />
                                 <input id="inputPassword" type="password" className="" placeholder="Password"
@@ -218,9 +215,9 @@ class Register extends Component {
                                 { this.props.form.email === 1 && <Popover className="ok"/> }
                                 { this.props.form.email === -1 && <Popover className="warning"/> }
                                 <img src={
-                                    this.props.form.email === 0 && require("./img/email.png") ||
-                                    this.props.form.email === -1 && require("./img/email2.png") ||
-                                    this.props.form.email === 1 && require("./img/email3.png")
+                                    (this.props.form.email === 0 && require("./img/email.png")) ||
+                                    (this.props.form.email === -1 && require("./img/email2.png")) ||
+                                    (this.props.form.email === 1 && require("./img/email3.png"))
                                 } alt="login"
                                 />
                                 <input id="inputEmail" type="text" className="" placeholder="Email address"
