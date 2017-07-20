@@ -9,9 +9,6 @@ import * as validator from './helpers/validator';
 @inject("user")
 @inject("menu", "form") @observer
 class Register extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     componentWillMount() {
         $.get('/api/check-auth')
@@ -27,6 +24,68 @@ class Register extends Component {
             })
     }
 
+    checkInputUsername() {
+        const username = $("#inputUsername").val();
+        if (username.length > 0) {
+            const result = validator.usernameValidator(username);
+            if (result === true) {
+                validator.checkUsername(username, (result) => {
+                    if (result === true) {
+                        this.props.form.text = "You can use this username.";
+                        this.props.form.username = 1;
+                    } else if (result === false) {
+                        // warning
+                        this.props.form.text = "This username is already used.";
+                        this.props.form.username = -1;
+                    } else {
+                        // warning
+                        this.props.form.text = "Username verification failed."
+                        this.props.form.username = -1;
+                    }
+                })
+            } else {
+                // warning
+                this.props.form.text = result;
+                this.props.form.username = -1;
+            }
+        } else {
+            this.props.form.username = 0;
+        }
+    }
+
+    checkInputPassword () {
+        const password = $("#inputPassword").val();
+        if (password.length > 0) {
+            const result = validator.passwordValidator(password);
+            if (result === true) {
+                this.props.form.text = 'You can use this password'
+                this.props.form.password = 1;
+            } else {
+                this.props.form.text = result;
+                this.props.form.password = -1;
+            }
+        } else {
+            this.props.form.password = 0;
+        }
+    }
+
+    checkInputEmail() {
+        const email = $("#inputEmail").val();
+        if (email.length > 0) {
+            const result = validator.emailValidator(email);
+            if (result === true) {
+                this.props.form.text = "It's okey";
+                this.props.form.email = 1;
+            } else {
+                this.props.form.text = result;
+                this.props.form.email = -1;
+            }
+        } else {
+            this.props.form.email = 0;
+        }
+    }
+
+
     close() {
         this.props.menu.popUp = '';
     }
@@ -35,11 +94,23 @@ class Register extends Component {
         this.props.menu.popUp = '';
     }
 
-    componentDidMount() {
-        console.log(this.props.location);
+    handleChange(inputName, event) {
+        if (inputName === "username") {
+            this.checkInputUsername();
+        }
+
+        if (inputName === "password") {
+            this.checkInputPassword();
+        }
+
+        if (inputName === "email") {
+            this.checkInputEmail();
+        }
     }
 
+
     handleFocus(inputName, event) {
+        this.handleChange(inputName, event);
         const label = event.target.parentElement;
         label.children[0].src = require("./img/" + inputName + "1" + ".png");
         label.classList.add('label-active');
@@ -48,77 +119,14 @@ class Register extends Component {
     handleBlur(inputName, event) {
         const label = event.target.parentElement;
         label.classList.remove('label-active');
+        label.children[0].src = require("./img/" + inputName + ".png");
         this.props.form.username = 0;
         this.props.form.password = 0;
         this.props.form.email = 0;
     }
 
-    handleChange(inputName, event) {
-        if (inputName === "username") {
-            const username = event.target.value;
-            if (username.length > 0) {
-                const result = validator.usernameValidator(username);
-                if (result === true) {
-                    validator.checkUsername(username, (result) => {
-                        if (result === true) {
-                            this.props.form.text = "You can use this username.";
-                            this.props.form.username = 1;
-                        } else if (result === false) {
-                            // warning
-                            this.props.form.text = "This username is already used.";
-                            this.props.form.username = -1;
-                        } else {
-                            // warning
-                            this.props.form.text = "Username verification failed."
-                            this.props.form.username = -1;
-                        }
-                    })
-                } else {
-                    // warning
-                    this.props.form.text = result;
-                    this.props.form.username = -1;
-                }
-            } else {
-                this.props.form.username = 0;
-            }
-        }
-
-        if (inputName === "password") {
-            const password = event.target.value;
-            if (password.length > 0) {
-                const result = validator.passwordValidator(password);
-                if (result === true) {
-                    this.props.form.text = 'You can use this password'
-                    this.props.form.password = 1;
-                } else {
-                    this.props.form.text = result
-                    this.props.form.password = -1;
-                }
-            } else {
-                this.props.form.password = 0;
-            }
-        }
-
-        if (inputName === "email") {
-            const email = event.target.value;
-            if (email.length > 0) {
-                const result = validator.emailValidator(email);
-                if (result === true) {
-                    this.props.form.text = "It's okey";
-                    this.props.form.email = 1;
-                } else {
-                    this.props.form.email = -1;
-                    this.props.form.text = result;
-                }
-            } else {
-                this.props.form.email = 0;
-            }
-
-        }
-    }
 
     handleSubmit(event) {
-        const self = this;
         event.preventDefault();
         $.post("/api/signup", {
             username: this.username.value,
@@ -126,9 +134,20 @@ class Register extends Component {
             email: this.email.value
         })
             .done((res) => {
-                // login already exists
                 if (res.errno === 1) {
-                    alert(res.message);
+                    $("#inputUsername").focus();
+                    return;
+                }
+                if (res.errno === 2) {
+                    $("#inputUsername").focus();
+                    return;
+                }
+                if (res.errno === 3) {
+                    $("#inputPassword").focus();
+                    return;
+                }
+                if (res.errno === 4) {
+                    $("#inputEmail").focus();
                     return;
                 }
 
@@ -170,6 +189,10 @@ class Register extends Component {
                 // critical error
                 //self.props.history.push('/error');
                 window.location = "/error";
+
+                console.log(error);
+                window.location = "http://localhost:3001/error";
+
             })
     }
 
@@ -187,27 +210,27 @@ class Register extends Component {
                                 { this.props.form.username === 1 && <Popover className="ok"/> }
                                 { this.props.form.username === -1 && <Popover className="warning"/> }
                                 <img src={
-                                    this.props.form.username === 0 && require("./img/login.png") ||
-                                    this.props.form.username === -1 && require("./img/login2.png") ||
-                                    this.props.form.username === 1 && require("./img/login3.png")
-                                } alt="login"
+                                    (this.props.form.username === 0 && require("./img/username.png")) ||
+                                    (this.props.form.username === -1 && require("./img/username2.png")) ||
+                                    (this.props.form.username === 1 && require("./img/username3.png"))
+                                } alt="username"
                                 />
-                                <input type="text" className="" placeholder="Login"
+                                <input id="inputUsername" type="text" className="" placeholder="Login"
                                        ref={(username) => this.username = username}
                                        onChange={this.handleChange.bind(this, 'username')}
-                                       onFocus={this.handleFocus.bind(this, 'login')}
-                                       onBlur={this.handleBlur.bind(this, 'login')}/>
+                                       onFocus={this.handleFocus.bind(this, 'username')}
+                                       onBlur={this.handleBlur.bind(this, 'username')}/>
                             </label><br/>
                             <label>
                                 { this.props.form.password === 1 && <Popover className="ok"/> }
                                 { this.props.form.password === -1 && <Popover className="warning"/> }
                                 <img src={
-                                    this.props.form.password === 0 && require("./img/password.png") ||
-                                    this.props.form.password === -1 && require("./img/password2.png") ||
-                                    this.props.form.password === 1 && require("./img/password3.png")
+                                    (this.props.form.password === 0 && require("./img/password.png")) ||
+                                    (this.props.form.password === -1 && require("./img/password2.png")) ||
+                                    (this.props.form.password === 1 && require("./img/password3.png"))
                                 } alt="login"
                                 />
-                                <input type="password" className="" placeholder="Password"
+                                <input id="inputPassword" type="password" className="" placeholder="Password"
                                        ref={(password) => this.password = password}
                                        onChange={this.handleChange.bind(this, 'password')}
                                        onFocus={this.handleFocus.bind(this, 'password')}
@@ -217,12 +240,12 @@ class Register extends Component {
                                 { this.props.form.email === 1 && <Popover className="ok"/> }
                                 { this.props.form.email === -1 && <Popover className="warning"/> }
                                 <img src={
-                                    this.props.form.email === 0 && require("./img/email.png") ||
-                                    this.props.form.email === -1 && require("./img/email2.png") ||
-                                    this.props.form.email === 1 && require("./img/email3.png")
+                                    (this.props.form.email === 0 && require("./img/email.png")) ||
+                                    (this.props.form.email === -1 && require("./img/email2.png")) ||
+                                    (this.props.form.email === 1 && require("./img/email3.png"))
                                 } alt="login"
                                 />
-                                <input type="text" className="" placeholder="Email address"
+                                <input id="inputEmail" type="text" className="" placeholder="Email address"
                                        ref={(email) => this.email = email}
                                        onChange={this.handleChange.bind(this, 'email')}
                                        onFocus={this.handleFocus.bind(this, 'email')}
