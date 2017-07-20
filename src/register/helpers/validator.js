@@ -1,5 +1,6 @@
 import * as $ from 'jquery';
 
+
 export function checkUsername (username, cb) {
     $.post('http://localhost:3001/api/check-username', {
         username
@@ -13,7 +14,7 @@ export function checkUsername (username, cb) {
 }
 
 export function usernameValidator(value) {
-    if (!value.match(/^[@$!%*#?&А-Яа-яЁёA-Za-z\s]*$/)) {
+    if (!value.match(/^[\w@$!%*#?&А-Яа-яЁёA-Za-z\s]*$/)) {
         return 'You can use latin letters, numbers and a lower underscore.';
     }
     if (value.length < 2) {
@@ -40,7 +41,7 @@ export function passwordValidator (value) {
 
 export function emailValidator(value) {
     if (!value.match(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
-        return 'Incorrect email. Check that the address is correct.';
+        return 'Incorrect email.';
     }
     return true;
 }
