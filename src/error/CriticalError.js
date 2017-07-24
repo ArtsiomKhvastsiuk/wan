@@ -1,9 +1,11 @@
 import React from 'react';
 import './criticalError.css';
 import * as $ from 'jquery';
-import {inject} from 'mobx-react';
+import Auth from '../authentication/Auth.js';
+import Register from '../register/Register.js';
+import {inject, observer} from 'mobx-react';
 
-@inject("user")
+@inject("user", "menu") @observer
 class CriticalError extends React.Component {
 
     componentWillMount() {
@@ -24,8 +26,14 @@ class CriticalError extends React.Component {
 
     render() {
         return (
-            <section className="critical-error">
-                <h1>Something went wrong :(</h1>
+            <section>
+                <section className="critical-error">
+                    <h1>Something went wrong :(</h1>
+                </section>
+                <section>
+                    { this.props.menu.popUp==='signIn' && <Auth />}
+                    { this.props.menu.popUp==='signUp' && <Register />}
+                </section>
             </section>
         )
     }

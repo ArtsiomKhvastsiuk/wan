@@ -1,8 +1,10 @@
 import React from "react";
-import * as $ from 'jquery';
-import {inject} from 'mobx-react';
+import * as $ from 'jquery'
+import Auth from '../authentication/Auth.js';
+import Register from '../register/Register.js';
+import {inject, observer} from 'mobx-react';
 
-@inject ("user")
+@inject ("user", "menu") @observer
 class About extends React.Component {
 
     componentWillMount() {
@@ -29,6 +31,8 @@ class About extends React.Component {
     render() {
         return (
             <section>
+                { this.props.menu.popUp==='signIn' && <Auth />}
+                { this.props.menu.popUp==='signUp' && <Register />}
             </section>
         )
     }

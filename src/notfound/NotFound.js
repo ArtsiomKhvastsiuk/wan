@@ -1,10 +1,11 @@
 import React from 'react';
 import './notfound.css';
 import * as $ from 'jquery';
-import {inject} from 'mobx-react';
+import {inject, observer} from 'mobx-react';
+import Auth from '../authentication/Auth.js';
+import Register from '../register/Register.js';
 
-
-@inject("user")
+@inject("user", "menu") @observer
 class NotFound extends React.Component {
 
     componentWillMount() {
@@ -25,12 +26,18 @@ class NotFound extends React.Component {
 
     render() {
         return (
-            <section className="not-found">
-                <p>404 Not Found :(</p>
+            <section>
+                <section className="not-found">
+                    <p>404 Not Found :(</p>
+                </section>
+                <section>
+                    { this.props.menu.popUp==='signIn' && <Auth />}
+                    { this.props.menu.popUp==='signUp' && <Register />}
+                </section>
             </section>
+
         )
     }
-
 }
 
 export default NotFound;
