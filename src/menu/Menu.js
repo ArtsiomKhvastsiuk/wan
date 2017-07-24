@@ -35,7 +35,7 @@ class Menu extends Component {
             $.get("/api/logout")
                 .done((res) => {
                     this.props.user.isAuthenticated = false;
-                    this.props.history.push('/');
+                    window.location = "/";
                 })
                 .fail((error) => {
                     console.log(error);
