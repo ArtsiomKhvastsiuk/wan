@@ -15,17 +15,19 @@ class Authentication extends Component {
     }
 
     componentWillMount() {
-        $.get('http://localhost:3001/api/check-auth')
-            .done((res) => {
-                if (res.status) {
-                    this.props.user.isAuthenticated = true;
-                    this.props.user.alertFlag = true;
-                    window.location = "http://localhost:3001";
-                }
-            })
-            .fail((error) => {
-                window.location = "http://localhost:3001/error";
-            })
+        if (!this.props.user.isAuthenticated) {
+            $.get("http://localhost:3001/api/check-auth")
+                .done((res) => {
+                    if (res.status) {
+                        this.props.user.isAuthenticated = true;
+                        return;
+                    }
+                    this.props.user.isAuthenticated = false;
+                })
+                .fail((error) => {
+                    window.location = 'http://localhost:3001/error';
+                })
+        }
     }
 
     handleFocus(inputName, event) {

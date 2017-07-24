@@ -16,7 +16,7 @@ class Profile extends React.Component {
                     this.props.user.isAuthenticated = false;
                 })
                 .fail((error) => {
-                    alert("App.js - error - /check-auth");
+                    window.location = 'http://localhost:3001/error';
                 })
         }
 

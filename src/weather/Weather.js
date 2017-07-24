@@ -30,6 +30,18 @@ class Weather extends Component {
     }
 
     componentWillMount() {
+        $.get("http://localhost:3001/api/check-auth")
+            .done((res) => {
+                if (res.status) {
+                    this.props.user.isAuthenticated = true;
+                    return;
+                }
+                this.props.user.isAuthenticated = false;
+            })
+            .fail((error) => {
+                window.location = 'http://localhost:3001/error';
+            })
+
         document.body.classList.add("bodyWeather");
 
         const self = this;
