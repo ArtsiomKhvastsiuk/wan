@@ -1,0 +1,13 @@
+.not-found {
+    position: absolute;
+    top: 20%;
+    left: 10%;
+    color: #585858;
+    font-size: 45px;
+
+}
+
+.not-found p {
+    font-family: 'PTSans-Regular';
+    margin: 0;
+}

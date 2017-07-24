@@ -6,6 +6,7 @@ import Menu from './menu/Menu';
 import CriticalError from './error/CriticalError'
 import App from './app/App';
 import Profile from './profile/Profile';
+import NotFound from './notfound/NotFound';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import injectTapEventPlugin from 'react-tap-event-plugin';
@@ -34,6 +35,7 @@ const Routes = observer((props) => (
                             <Route path="/about" component={News}/>
                             <Route path="/profile" component={Profile}/>
                             <Route path="/error" component={CriticalError}/>
+                            <Route component={NotFound}/>
                         </Switch>
                     </div>
                 </section>
