@@ -7,7 +7,7 @@ class Profile extends React.Component {
 
     componentWillMount() {
         if (!this.props.user.isAuthenticated) {
-            $.get("http://localhost:3001/api/check-auth")
+            $.get("/api/check-auth")
                 .done((res) => {
                     if (res.status) {
                         this.props.user.isAuthenticated = true;
@@ -20,7 +20,7 @@ class Profile extends React.Component {
                 })
         }
 
-        $.get('http://localhost:3001/api/profile')
+        $.get('/api/profile')
             .done((res) => {
                 if (res.status) {
                     console.log(res.user);
