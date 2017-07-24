@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Weather from './weather/Weather';
 import News from './news/News';
+import About from './about/About';
 import Menu from './menu/Menu';
 import CriticalError from './error/CriticalError'
 import App from './app/App';
@@ -32,7 +33,7 @@ const Routes = observer((props) => (
                             <Route exact path="/" component={App}/>
                             <Route path="/weather" component={Weather}/>
                             <Route path="/news" component={News}/>
-                            <Route path="/about" component={News}/>
+                            <Route path="/about" component={About}/>
                             <Route path="/profile" component={Profile}/>
                             <Route path="/error" component={CriticalError}/>
                             <Route component={NotFound}/>

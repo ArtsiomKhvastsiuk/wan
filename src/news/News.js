@@ -42,6 +42,11 @@ class News extends Component {
         })
     }
 
+    componentDidMount() {
+        const menuItems = document.querySelectorAll('.menu');
+        menuItems[1].classList.add('active');
+    }
+
     render() {
         const articles = this.state.articles;
         return (

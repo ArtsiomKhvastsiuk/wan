@@ -14,22 +14,6 @@ class Authentication extends Component {
         };
     }
 
-    componentWillMount() {
-        if (!this.props.user.isAuthenticated) {
-            $.get("http://localhost:3001/api/check-auth")
-                .done((res) => {
-                    if (res.status) {
-                        this.props.user.isAuthenticated = true;
-                        return;
-                    }
-                    this.props.user.isAuthenticated = false;
-                })
-                .fail((error) => {
-                    window.location = 'http://localhost:3001/error';
-                })
-        }
-    }
-
     handleFocus(inputName, event) {
         const label = event.target.parentElement;
         label.children[0].src = require("./img/" + inputName + "1" + ".png");

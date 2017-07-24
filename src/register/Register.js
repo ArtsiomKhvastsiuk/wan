@@ -10,20 +10,6 @@ import * as validator from './helpers/validator';
 @inject("menu", "form") @observer
 class Register extends Component {
 
-/*    componentWillMount() {
-        $.get('http://localhost:3001/api/check-auth')
-            .done((res) => {
-                if (res.status) {
-                    this.props.user.isAuthenticated = true;
-                    this.props.user.alertFlag = true;
-                    window.location = "http://localhost:3001";
-                }
-            })
-            .fail((error) => {
-                window.location = "http://localhost:3001/error";
-            })
-    }*/
-
     checkInputUsername() {
         const username = $("#inputUsername").val();
         if (username.length > 0) {
