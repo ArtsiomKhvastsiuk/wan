@@ -24,8 +24,11 @@ class About extends React.Component {
     }
 
     componentDidMount() {
-        const menuItems = document.querySelectorAll('.menu');
-        menuItems[2].classList.add('active');
+        const menuItems = document.querySelectorAll('.menu a');
+        for (let i = 0; i < menuItems.length; i++) {
+            if (menuItems[i].innerHTML === 'about')
+                menuItems[i].classList.add('active');
+        }
     }
 
     render() {

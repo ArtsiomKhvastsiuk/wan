@@ -14,7 +14,7 @@ class Menu extends Component {
         }
         else {
             event.target.classList.add('active');
-            const menuItems = document.querySelectorAll('.menu');
+            const menuItems = document.querySelectorAll('.menu a');
             for (let i = 0; i < menuItems.length; i++) {
                 if (menuItems[i] !== event.target) {
                     menuItems[i].classList.remove('active');

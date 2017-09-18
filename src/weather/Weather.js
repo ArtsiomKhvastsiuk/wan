@@ -74,8 +74,11 @@ class Weather extends Component {
     }
 
     componentDidMount() {
-        const menuItems = document.querySelectorAll('.menu');
-        menuItems[0].classList.add('active');
+        const menuItems = document.querySelectorAll('.menu a');
+        for (let i = 0; i < menuItems.length; i++) {
+            if (menuItems[i].innerHTML === 'weather')
+                menuItems[i].classList.add('active');
+        }
     }
 
     render() {
