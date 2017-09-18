@@ -79,12 +79,13 @@ class Weather extends Component {
             if (menuItems[i].innerHTML === 'weather')
                 menuItems[i].classList.add('active');
         }
+
+        this.props.weather.isWeather = true;
     }
 
     render() {
         return (
             <section>
-                <DropDown />
                 <section className="weather-container">
                     <section className="refresh">
                         {

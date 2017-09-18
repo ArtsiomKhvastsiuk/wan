@@ -4,7 +4,7 @@ import Auth from '../authentication/Auth.js';
 import Register from '../register/Register.js';
 import {inject, observer} from 'mobx-react';
 
-@inject ("user", "menu") @observer
+@inject ("user", "menu", "weather") @observer
 class About extends React.Component {
 
     componentWillMount() {
@@ -29,6 +29,8 @@ class About extends React.Component {
             if (menuItems[i].innerHTML === 'about')
                 menuItems[i].classList.add('active');
         }
+
+        this.props.weather.isWeather = false;
     }
 
     render() {

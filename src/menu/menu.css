@@ -14,11 +14,13 @@ header {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    padding-top: 30px;
+    padding-top: 20px;
 }
 
 .menu {
+    height: 40px;
     display: flex;
+    align-items: center;
 }
 
 .menu a {

@@ -4,8 +4,10 @@ import {Link} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import * as $ from "jquery";
 
+import DropDown from '../menu/DropDown';
+
 @inject("user") @observer
-@inject("menu") @observer
+@inject("menu", "weather") @observer
 class Menu extends Component {
 
     isPressed(event) {
@@ -46,6 +48,7 @@ class Menu extends Component {
                         <a href="/">WN</a>
                     </section>
                     <section className="menu">
+                        {this.props.weather.isWeather && <DropDown /> }
                         <nav>
                             <Link onClick={this.isPressed.bind(this)} to="/weather">weather</Link>
                             <Link onClick={this.isPressed.bind(this)} to="/news">news</Link>

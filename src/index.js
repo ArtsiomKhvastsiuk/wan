@@ -5,7 +5,6 @@ import './index.css';
 import {observable} from "mobx";
 
 class User {
-
     @observable isAuthenticated = false;
     @observable alertFlag = false;
     @observable username = null;
@@ -21,6 +20,8 @@ class Weather {
         refresh: true,
         date: new Date().toLocaleString()
     }
+
+    @observable isWeather = null;
 }
 
 class Menu{

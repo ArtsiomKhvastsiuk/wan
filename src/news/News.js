@@ -5,7 +5,7 @@ import Register from '../register/Register.js';
 import * as $ from 'jquery';
 import {inject, observer} from 'mobx-react';
 
-@inject ("user", "menu") @observer
+@inject ("user", "menu", "weather") @observer
 
 class News extends Component {
     constructor(props) {
@@ -48,6 +48,8 @@ class News extends Component {
             if (menuItems[i].innerHTML === 'news')
                 menuItems[i].classList.add('active');
         }
+        this.props.weather.isWeather = false;
+
     }
 
     render() {
