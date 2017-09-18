@@ -84,7 +84,9 @@ class Authentication extends Component {
                                                onBlur={this.handleBlur.bind(this, 'password')}/>
                                     </label><br/>
                                     <input  type="submit" className="button" value="SIGN IN" />
+
                                 </form>
+                                <a href="api/auth/google">Sign In with Google</a>
                             </section>
 
             </section>

@@ -1,6 +1,12 @@
 .auth-form-container{
-    width: 344px;
-    height: 372px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+
+    width: 375px;
+    height: 295px;
     position: absolute;
     top: 0;
     right: 0;
@@ -12,4 +18,12 @@
     background-color: white;
     border-radius: 10px;
     z-index: 2;
+}
+
+.auth-form-container p {
+     margin: 15px 0 -15px 0;
+ }
+
+.auth-form-container a {
+    margin-top: -15px;
 }
