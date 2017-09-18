@@ -9,8 +9,7 @@ import {inject, observer} from 'mobx-react'
 import Logo from '../menu/Logo';
 
 
-@inject("user", "weather") @observer
-    @inject ("menu") @observer
+@inject("user", "weather", "menu") @observer
 class Weather extends Component {
 
     constructor(props) {
@@ -28,6 +27,7 @@ class Weather extends Component {
             cb(error);
         })
     }
+
 
     componentWillMount() {
         $.get("http://localhost:3001/api/check-auth")
@@ -81,7 +81,6 @@ class Weather extends Component {
     render() {
         return (
             <section>
-                <Logo />
                 <DropDown />
                 <section className="weather-container">
                     <section className="refresh">

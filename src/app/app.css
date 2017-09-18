@@ -1,14 +1,10 @@
 @font-face {
-    font-family: 'AvenirLT-Light';
-    src: url(./fonts/avenir-lt-light.otf);
-}
-
-@font-face {
     font-family: 'Neou-Thin';
     src: url(./fonts/Neou-Thin.otf);
 }
 
 body {
+    margin: 0;
     background-color: #f7f6f6;
 }
 

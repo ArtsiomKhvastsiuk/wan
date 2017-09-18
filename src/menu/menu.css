@@ -1,49 +1,33 @@
 
-@font-face {
-    font-family: 'AvenirLT-Book';
-    src: url(./fonts/avenir-lt-book.otf);
-}
-
 a {
     font-family: 'PTSans-Regular';
     text-decoration: none;
     text-transform: uppercase;
-    font-size: 13px;
+    font-size: 14pt;
     letter-spacing: 1px;
     color: #585858;
     cursor: pointer;
 }
 
 header {
-    float: right;
-    margin: 20px 25px 0 0;
-}
-
-.icon {
-    float: right;
-    margin: 4px 20px 0 -35px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-top: 30px;
 }
 
 .menu {
-    margin-right: 35px;
-    display: inline-block;
-    float: left;
+    display: flex;
 }
 
-.signup-in {
-    float: right;
+.menu a {
+    margin-right: 48px;
 }
-
-/*a:focus{*/
-    /*border-bottom: 0px solid #fff !important;*/
-    /*color: #ffd200;*/
-/*}*/
 
 .active {
     border-bottom: 0px solid #fff !important;
     color: #ffd200;
 }
 
-.profile-img {
-    height: 13px;
-}
+

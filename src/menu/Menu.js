@@ -4,12 +4,6 @@ import {Link} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import * as $ from "jquery";
 
-import IconMenu from 'material-ui/IconMenu';
-import MenuItem from 'material-ui/MenuItem';
-import IconButton from 'material-ui/IconButton';
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import Divider from 'material-ui/Divider';
-
 @inject("user") @observer
 @inject("menu") @observer
 class Menu extends Component {
@@ -44,42 +38,29 @@ class Menu extends Component {
         }
     }
 
-
     render() {
         return (
             <section>
-                <section className="icon">
-                    {
-                        this.props.user.isAuthenticated &&
-                        <IconMenu
-                            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-                            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                        >
-                            <MenuItem onClick={this.handleClick.bind(this, "profile")} primaryText="Profile"/>
-                            <MenuItem primaryText="Settings"/>
-                            <Divider />
-                            <MenuItem onClick={this.handleClick.bind(this, "signout")} primaryText="Sign out"/>
-                        </IconMenu>
-
-                    }
-                </section>
                 <header>
+                    <section className="logo">
+                        <a href="/">WN</a>
+                    </section>
+                    <section className="menu">
+                        <nav>
+                            <Link onClick={this.isPressed.bind(this)} to="/weather">weather</Link>
+                            <Link onClick={this.isPressed.bind(this)} to="/news">news</Link>
+                            <Link onClick={this.isPressed.bind(this)} to="/about">about</Link>
+                        </nav>
 
-                    <Link onClick={this.isPressed.bind(this)} className="menu" to="/weather">weather</Link>
-                    <Link onClick={this.isPressed.bind(this)} className="menu" to="/news">news</Link>
-                    <Link onClick={this.isPressed.bind(this)} className="menu" to="/about">about</Link>
-
-                    {
-                        !this.props.user.isAuthenticated &&
-                        <section className="signup-in">
-                            <a onClick={this.isPressed.bind(this)} className="menu pop-up" id="signUp">sign up</a>
-                            <a onClick={this.isPressed.bind(this)} className="menu pop-up" id="signIn">sign in</a>
-                        </section>
-                    }
-
-
+                        {
+                            !this.props.user.isAuthenticated &&
+                            <section>
+                                <a onClick={this.isPressed.bind(this)} className="pop-up" id="signUp">sign up</a>
+                                <a onClick={this.isPressed.bind(this)} className="pop-up" id="signIn">sign in</a>
+                            </section>
+                        }
+                    </section>
                 </header>
-
             </section>
         )
     }
