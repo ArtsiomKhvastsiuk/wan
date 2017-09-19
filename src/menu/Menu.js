@@ -3,6 +3,7 @@ import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import * as $ from "jquery";
+import MenuIcon from './MenuIcon'
 
 import DropDown from '../menu/DropDown';
 
@@ -34,7 +35,7 @@ class Menu extends Component {
                 })
                 .fail((error) => {
 
-                })
+                });
         if (value === "profile") {
             window.location = "http://localhost:3001/profile";
         }
@@ -62,6 +63,8 @@ class Menu extends Component {
                                 <a onClick={this.isPressed.bind(this)} className="pop-up" id="signIn">sign in</a>
                             </section>
                         }
+                        { this.props.user.isAuthenticated && <MenuIcon class="menu-icon"/> }
+
                     </section>
                 </header>
             </section>
