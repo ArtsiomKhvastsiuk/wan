@@ -1,6 +1,7 @@
 import React from 'react'
 import * as $ from 'jquery';
 import {inject, observer} from 'mobx-react';
+import './profile.css';
 
 @inject("user") @observer
 class Profile extends React.Component {
@@ -33,11 +34,27 @@ class Profile extends React.Component {
             })
     }
 
+    componentDidMount() {
+        const heigth = $(window).height();
+        document.body.classList.add("bodyProfile");
+        $('.profile').css('height', heigth);
+    }
+
     render() {
         return (
             <section className="profile">
-                <p>{this.props.user.username}</p>
-                <p>{this.props.user.email}</p>
+                    <section className="profile-content">
+                        <p className="profile-text">login:</p>
+                        <p className="profile-data" id="username">inatmospheric</p>
+                    </section>
+                    <section className="profile-content">
+                        <p className="profile-text">email address:</p>
+                        <p className="profile-data" id="emaill">inatmospheric@gmail.com</p>
+                    </section>
+                    <section className="profile-content">
+                        <p className="profile-text">registration date:</p>
+                        <p className="profile-data" id="dateReg">19.09.2017</p>
+                    </section>
             </section>
         )
     }

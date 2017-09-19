@@ -33,7 +33,8 @@ exports.oauthCallbackAuthenticate = (name, options) => (req, res, next) => {
         }
         if (!user) {
             const username = info.google.name;
-            const newUser = new User(Object.assign({username}, info));
+            const email = info.google.email[0].value;
+            const newUser = new User(Object.assign({username, email}, info));
             newUser.save()
                 .then((user) => {
                     req.logIn(user, function () {
