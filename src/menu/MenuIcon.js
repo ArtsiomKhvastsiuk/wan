@@ -4,24 +4,47 @@ import MenuItem from 'material-ui/MenuItem';
 import IconButton from 'material-ui/IconButton';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import Divider from 'material-ui/Divider';
+import { withRouter } from 'react-router-dom';
+import * as $ from 'jquery';
 
 const menuIconStyle = {
     margin: '0 34px 0 -20px',
 };
 
-const MenuIcon = () => (
+class MenuIcon extends React.Component {
 
-    <div style={menuIconStyle}>
-        <IconMenu
-            iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
-            anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-            targetOrigin={{horizontal: 'middle', vertical: 'top'}}
-        >
-            <MenuItem primaryText="Profile" />
-            <Divider />
-            <MenuItem primaryText="Sign out" />
-        </IconMenu>
-    </div>
-);
+    onClick(value) {
+        if (value === 'profile') {
+            this.props.history.push('/profile');
+        } else if (value === 'signOut') {
+            $.get('http://localhost:3001/api/logout')
+                .done((res) => {
+                    if (res) {
+                        window.location = '/';
+                    }
+                })
+                .fail((error) => {
+                    this.props.history.push('/error')
+                });
+        }
+    }
 
-export default MenuIcon;
+    render() {
+        return (
+            <div style={menuIconStyle}>
+                <IconMenu
+                    iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+                    anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                    targetOrigin={{horizontal: 'middle', vertical: 'top'}}
+                >
+                    <MenuItem primaryText="Profile" onClick={this.onClick.bind(this, "profile")}/>
+                    <Divider />
+                    <MenuItem primaryText="Sign out" onClick={this.onClick.bind(this, "signOut")}/>
+                </IconMenu>
+            </div>
+        )
+    }
+}
+
+
+export default withRouter(MenuIcon);
