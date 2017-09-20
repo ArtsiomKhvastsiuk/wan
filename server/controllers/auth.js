@@ -15,6 +15,15 @@ exports.register = function (req, res, next) {
                 return res.json({message: "This login already exists.", errno: 1});
             }
 
+            User.findOne({email}, null, {collation: {locale: 'en', strength: 2}})
+                .then((user) => {
+                    if (user)
+                        return res.json({message: 'This email is already used', errno: 5})
+                })
+                .catch((error) => {
+                    next(error);
+                });
+
             const user = new User({
                 username: username,
                 password: password,

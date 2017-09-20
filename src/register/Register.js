@@ -136,6 +136,10 @@ class Register extends Component {
                     $("#inputEmail").focus();
                     return;
                 }
+                if(res.errno === 5) {
+                    alert(res.message);
+                    return;
+                }
 
                 if (res.result) {
                     this.username.value = "";

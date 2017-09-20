@@ -45,11 +45,11 @@ class Profile extends React.Component {
             <section className="profile">
                     <section className="profile-content">
                         <p className="profile-text">login:</p>
-                        <p className="profile-data" id="username">inatmospheric</p>
+                        <p className="profile-data" id="username">{this.props.user.username}</p>
                     </section>
                     <section className="profile-content">
                         <p className="profile-text">email address:</p>
-                        <p className="profile-data" id="emaill">inatmospheric@gmail.com</p>
+                        <p className="profile-data" id="emaill">{this.props.user.email}</p>
                     </section>
                     <section className="profile-content">
                         <p className="profile-text">registration date:</p>

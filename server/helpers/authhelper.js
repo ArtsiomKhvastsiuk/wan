@@ -34,16 +34,34 @@ exports.oauthCallbackAuthenticate = (name, options) => (req, res, next) => {
         if (!user) {
             const username = info.google.name;
             const email = info.google.email[0].value;
-            const newUser = new User(Object.assign({username, email}, info));
-            newUser.save()
+            User.findOne({email}, null, {collation: {locale: 'en', strength: 2}})
                 .then((user) => {
-                    req.logIn(user, function () {
-                        next();
-                    });
+                    if (!user) {
+                        const newUser = new User(Object.assign({username, email}, info));
+                        newUser.save()
+                            .then((user) => {
+                                req.logIn(user, function () {
+                                    next();
+                                });
+                            })
+                            .catch((error) => {
+                                return next(error);
+                            });
+                    } else {
+                        user.set({google: {'id': info.google.id, 'name': username}});
+                        user.save()
+                            .catch((error) => {
+                                next(error);
+                            });
+                        req.logIn(user, () => {
+                            next();
+                        })
+                    }
                 })
                 .catch((error) => {
                     return next(error);
                 })
+
         } else {
             req.logIn(user, function() {
                 next();
