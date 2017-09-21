@@ -13,7 +13,14 @@ const menuIconStyle = {
 
 class MenuIcon extends React.Component {
 
-    onClick(value) {
+    onClick(value, event) {
+        const menuItems = document.querySelectorAll('.menu a');
+        for (let i = 0; i < menuItems.length; i++) {
+            if (menuItems[i] !== event.target) {
+                menuItems[i].classList.remove('active');
+            }
+        }
+
         if (value === 'profile') {
             this.props.history.push('/profile');
         } else if (value === 'signOut') {

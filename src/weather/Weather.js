@@ -63,7 +63,7 @@ class Weather extends Component {
                 window.location = 'http://localhost:3001/error';
             });
 
-        document.body.classList.add("bodyWeather");
+        document.body.className = "bodyWeather";
 
         /*const self = this;*/
         this.getCurrentPosition((error, result) => {
@@ -81,6 +81,7 @@ class Weather extends Component {
     }
 
     componentWillUnmount() {
+        this.props.weather.isWeather = false;
         document.body.classList.remove("bodyWeather");
     }
 

@@ -32,12 +32,18 @@ class Profile extends React.Component {
             .fail((error) => {
                 console.log(error);
             })
+
+        document.body.className = "bodyProfile";
     }
+
 
     componentDidMount() {
         const heigth = $(window).height();
-        document.body.classList.add("bodyProfile");
         $('.profile').css('height', heigth);
+    }
+
+    componentWillUnmount() {
+        document.body.classList.remove("bodyProfile");
     }
 
     render() {
