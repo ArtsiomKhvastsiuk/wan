@@ -60,7 +60,7 @@ class Weather extends Component {
                 this.props.user.isAuthenticated = false;
             })
             .fail((error) => {
-                window.location = 'http://localhost:3001/error';
+                this.props.history.push('error');
             });
 
         document.body.className = "bodyWeather";

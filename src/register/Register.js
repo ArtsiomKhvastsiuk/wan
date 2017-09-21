@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import * as $ from 'jquery';
 import './register.css';
 import {inject, observer} from 'mobx-react'
+import { withRouter } from 'react-router-dom';
 
 import Popover from './Popover';
 import * as validator from './helpers/validator';
@@ -146,7 +147,7 @@ class Register extends Component {
                     this.password.value = "";
                     this.email.value = "";
                     this.props.user.isAuthenticated = true;
-                    window.location = "http://localhost:3001/profile";
+                    this.props.history.push('/profile');
                     alert("You've successfully registered");
                     return;
                 }
@@ -157,7 +158,7 @@ class Register extends Component {
             })
             .fail((error) => {
                 console.log(error);
-                window.location = "http://localhost:3001/error";
+                this.props.history.push('/error');
             })
     }
 
@@ -228,4 +229,4 @@ class Register extends Component {
 }
 
 
-export default Register;
+export default withRouter(Register);

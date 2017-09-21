@@ -7,6 +7,8 @@ import './profile.css';
 class Profile extends React.Component {
 
     componentWillMount() {
+        if (this.props.user.isAuthenticated === false)
+            this.props.history.push('/');
         if (!this.props.user.isAuthenticated) {
             $.get("http://localhost:3001/api/check-auth")
                 .done((res) => {
@@ -17,7 +19,7 @@ class Profile extends React.Component {
                     this.props.user.isAuthenticated = false;
                 })
                 .fail((error) => {
-                    window.location = 'http://localhost:3001/error';
+                    this.props.history.push('/error');
                 })
         }
 
@@ -31,7 +33,7 @@ class Profile extends React.Component {
             })
             .fail((error) => {
                 console.log(error);
-            })
+            });
 
         document.body.className = "bodyProfile";
     }

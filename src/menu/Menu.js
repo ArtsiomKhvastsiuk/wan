@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom';
 import {inject, observer} from "mobx-react";
 import * as $ from "jquery";
 import MenuIcon from './MenuIcon'
+import { withRouter } from 'react-router-dom';
 
 import DropDown from '../menu/DropDown';
 
@@ -31,13 +32,13 @@ class Menu extends Component {
             $.get("http://localhost:3001/api/logout")
                 .done((res) => {
                     this.props.user.isAuthenticated = false;
-                    window.location = "http://localhost:3001/";
+                    this.props.history.push("/");
                 })
                 .fail((error) => {
 
                 });
         if (value === "profile") {
-            window.location = "http://localhost:3001/profile";
+            this.props.history.push("/profile");
         }
     }
 
@@ -72,4 +73,4 @@ class Menu extends Component {
     }
 }
 
-export default Menu;
+export default withRouter(Menu);
