@@ -44,7 +44,7 @@ class Authentication extends Component {
                     this.username.value = "";
                     this.password.value = "";
                     this.props.user.isAuthenticated = true;
-                    this.props.history.push('/');
+                    window.location = 'http://localhost:3001/';
                     return;
                 } else if (res.errno === 2) {
                     alert("Incorrect username");
