@@ -18,8 +18,9 @@ class Weather {
         temp: null,
         isMounted: false,
         refresh: true,
-        date: new Date().toLocaleString()
-    }
+        date: new Date(),
+        error : false,
+    };
 
     @observable isWeather = null;
 }

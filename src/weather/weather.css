@@ -56,14 +56,53 @@ html {
 
 .request-failed {
     color: #ffd200;
-    display: none;
     position: absolute;
     left: 50%;
     top: 50%;
 }
 
 .refresh {
+    width: 60px;
+    height: 60px;
     position: absolute;
-    top: 45%;
-    left: 45%;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+
+.weather-error {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 60%;
+    height: 10%;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.weather-error img {
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+}
+
+.weather-error img:hover {
+    box-shadow: 0 0 4px rgba(0,0,0,0.5);
+    border-radius: 15px;
+}
+
+.weather-error p {
+    padding: 10px;
+    margin: 0;
+    font-family: 'PTSans-Regular';
+    font-size: 16px;
+    letter-spacing: 0.5px;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }

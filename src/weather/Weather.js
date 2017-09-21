@@ -32,6 +32,24 @@ class Weather extends Component {
     }
 
 
+    getWeatherFrom(city) {
+        const url = "https://api.wunderground.com/api/6d5cd374a1229785/conditions/q/" + city.coords.latitude + ',' + city.coords.longitude + ".json";
+        $.getJSON(url)
+            .done((data) => {
+                this.props.weather.data.country = data.current_observation.display_location.state_name;
+                this.props.weather.data.city = data.current_observation.display_location.city;
+                this.props.weather.data.temp = Math.floor(data.current_observation.temp_c);
+                this.props.weather.data.isMounted = true;
+                this.props.weather.data.refresh = false;
+            })
+            .fail((error) => {
+                this.setState({
+                    errorText: "Weather Api doesn't respond. Please try to reload this page later or use city selection menu."
+                });
+                this.props.weather.error = true;
+            });
+    }
+
     componentWillMount() {
         $.get("http://localhost:3001/api/check-auth")
             .done((res) => {
@@ -47,28 +65,18 @@ class Weather extends Component {
 
         document.body.classList.add("bodyWeather");
 
-        const self = this;
+        /*const self = this;*/
         this.getCurrentPosition((error, result) => {
             if (error) {
-                return;
-            }
-
-            const url = "https://api.wunderground.com/api/6d5cd374a1229785/conditions/q/" + result.coords.latitude + ',' + result.coords.longitude + ".json";
-            $.getJSON(url)
-                .done((data) => {
-                    this.props.weather.data.country = data.current_observation.display_location.state_name;
-                    this.props.weather.data.city = data.current_observation.display_location.city;
-                    this.props.weather.data.temp = Math.floor(data.current_observation.temp_c);
-                    this.props.weather.data.isMounted = true;
-                    this.props.weather.data.refresh = false;
-                })
-                .fail((error) => {
-                    const reqFailed = document.getElementsByClassName('request-failed');
-                    self.setState({
-                        errorText: error
-                    });
-                    reqFailed[0].style.display = 'block';
-                })
+                    const city = {
+                        coords: {
+                            latitude: 53.9000000,
+                            longitude: 27.5666700,
+                        },
+                    };
+                    return this.getWeatherFrom(city);
+                }
+            this.getWeatherFrom(result);
         });
     }
 
@@ -90,6 +98,11 @@ class Weather extends Component {
                 date: new Date(),
             });
         }, 1000);
+        this.props.weather.error = false;
+    }
+
+    close() {
+        this.props.weather.error = false;
     }
 
     render() {
@@ -107,17 +120,24 @@ class Weather extends Component {
                     {
                         this.props.weather.data.isMounted &&
                         <section className="data-of-temp">
-                            <p className="location">{this.props.weather.data.country}, {this.props.weather.data.city}</p>
+                            <p className="location"><span>{this.props.weather.data.country}</span>, {this.props.weather.data.city}</p>
                             <p className="temperature">{this.props.weather.data.temp}&deg;</p>
                             <p className="date">{date}</p>
                         </section>
                     }
-                    <section className="request-failed">
-                        {/*<p>{this.state.errorText}</p>*/}
-                    </section>
-                    { this.props.menu.popUp==='signIn' && <Auth />}
-                    { this.props.menu.popUp==='signUp' && <Register />}
+                    { this.props.menu.popUp === 'signIn' && <Auth />}
+                    { this.props.menu.popUp === 'signUp' && <Register />}
                 </section>
+                {
+                    this.props.weather.error &&
+                    <section className="overlay center">
+                        <section className="weather-error">
+                                <p>{this.state.errorText}</p>
+                                <img onClick={this.close.bind(this)} src={require('./img/close.png')}/>
+                        </section>
+                    </section>
+                }
+
             </section>
         )
     }

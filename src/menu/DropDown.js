@@ -26,6 +26,7 @@ class Search extends React.Component {
     }
 
     handleChange = (event, index, value) => {
+        this.props.weather.error = false;
         this.setState({value});
     }
 
