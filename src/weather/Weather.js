@@ -4,8 +4,8 @@ import Auth from '../authentication/Auth.js';
 import Register from '../register/Register.js';
 import * as $ from 'jquery';
 import CircularProgress from 'material-ui/CircularProgress';
-import DropDown from '../menu/DropDown';
 import {inject, observer} from 'mobx-react'
+import dateFormat from 'dateformat';
 import Logo from '../menu/Logo';
 
 
@@ -14,6 +14,9 @@ class Weather extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            date: new Date(),
+        }
     }
 
     getCurrentPosition(cb) {
@@ -40,7 +43,7 @@ class Weather extends Component {
             })
             .fail((error) => {
                 window.location = 'http://localhost:3001/error';
-            })
+            });
 
         document.body.classList.add("bodyWeather");
 
@@ -74,16 +77,23 @@ class Weather extends Component {
     }
 
     componentDidMount() {
+        // if isWeather state is true then dropDown menu and menuIcon are rendered
+        this.props.weather.isWeather = true;
         const menuItems = document.querySelectorAll('.menu a');
         for (let i = 0; i < menuItems.length; i++) {
             if (menuItems[i].innerHTML === 'weather')
                 menuItems[i].classList.add('active');
         }
 
-        this.props.weather.isWeather = true;
+        setInterval(() => {
+            this.setState({
+                date: new Date(),
+            });
+        }, 1000);
     }
 
     render() {
+        let date = dateFormat(this.state.date, "dddd, mmmm dS, HH:MM:ss");
         return (
             <section>
                 <section className="weather-container">
@@ -99,7 +109,7 @@ class Weather extends Component {
                         <section className="data-of-temp">
                             <p className="location">{this.props.weather.data.country}, {this.props.weather.data.city}</p>
                             <p className="temperature">{this.props.weather.data.temp}&deg;</p>
-                            <p className="date">{this.props.weather.data.date}</p>
+                            <p className="date">{date}</p>
                         </section>
                     }
                     <section className="request-failed">
