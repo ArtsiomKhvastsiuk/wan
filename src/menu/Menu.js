@@ -47,7 +47,7 @@ class Menu extends Component {
             <section>
                 <header>
                     <section className="logo">
-                        <a href="/">WN</a>
+                        <Link to="/">WN</Link>
                     </section>
                     <section className="menu">
                         {this.props.weather.isWeather && <DropDown /> }
