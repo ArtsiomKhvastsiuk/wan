@@ -31,8 +31,11 @@ exports.register = function (req, res, next) {
             });
 
             user.save()
-                .then(() => {
-                    return res.json({result: true})
+                .then((user) => {
+                    req.logIn(user, () => {
+                        return res.json({result: true});
+                    });
+
                 })
                 .catch((error) => {
                     if (error.name === "ValidationError") {
