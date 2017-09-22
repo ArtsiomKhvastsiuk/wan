@@ -24,9 +24,9 @@
 }
 
 label {
+    display: flex;
+    align-items: center;
     position: relative;
-    width: 240px;
-    display: block;
     border-bottom: 1px solid #c3c3c3;
 }
  .label-active-ok {
@@ -34,7 +34,7 @@ label {
  }
 
 input {
-    width: 215px;
+    width: 100%;
     height: 40px;
     border: none;
 }
@@ -49,7 +49,6 @@ input:focus{
 }
 
 .button {
-    width: 240px;
     background-color: #1a62ec;
     color: #fff;
     border-radius: 50px;
@@ -63,9 +62,12 @@ img {
     color: #545454;
     font-size: 24px;
     font-weight: bold;
+    font-family: 'PTSans-Regular';
+    margin-bottom: 12px;
 }
 
 p {
+    font-family: 'PTSans-Regular';
     color: #444444;
 }
 

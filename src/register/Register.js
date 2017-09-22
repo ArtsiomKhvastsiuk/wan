@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import * as $ from 'jquery';
 import './register.css';
 import {inject, observer} from 'mobx-react'
-import { withRouter } from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 import Popover from './Popover';
 import * as validator from './helpers/validator';
@@ -40,7 +40,7 @@ class Register extends Component {
         }
     }
 
-    checkInputPassword () {
+    checkInputPassword() {
         const password = $("#inputPassword").val();
         if (password.length > 0) {
             const result = validator.passwordValidator(password);
@@ -137,7 +137,7 @@ class Register extends Component {
                     $("#inputEmail").focus();
                     return;
                 }
-                if(res.errno === 5) {
+                if (res.errno === 5) {
                     alert(res.message);
                     return;
                 }
@@ -220,7 +220,10 @@ class Register extends Component {
                             <input type="submit" className="button" value="SIGN UP"/>
                         </form>
                         <p>Already have an account? <a className="login" href="/signin">Login</a></p>
-                        <a href="api/auth/google">Sign In with Google</a>
+                        <a className="google-auth" href="api/auth/google">
+                            Sign In with Google
+                            <img src={require('../authentication/img/google1.png')} alt="google"/>
+                        </a>
                     </section>
                 </section>
             </section>

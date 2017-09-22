@@ -67,7 +67,7 @@ class Authentication extends Component {
                 <section className="overlay" onClick={this.close.bind(this)}> </section>
                             <section className="auth-form-container">
                                 <p className="text">Please sign in</p>
-                                <form onSubmit={this.handleSubmit.bind(this)}>
+                                <form className="auth-form" onSubmit={this.handleSubmit.bind(this)}>
                                     <label>
                                         <img src={require("./img/login.png")} alt="login"/>
                                         <input type="text" className="" placeholder="Login"
@@ -85,9 +85,12 @@ class Authentication extends Component {
                                                onBlur={this.handleBlur.bind(this, 'password')}/>
                                     </label><br/>
                                     <input  type="submit" className="button" value="SIGN IN" />
-
                                 </form>
-                                <a href="api/auth/google">Sign In with Google</a>
+                                <a className="google-auth" href="api/auth/google">
+                                    Sign In with Google
+                                    <img src={require('./img/google1.png')} alt="google"/>
+                                </a>
+
                             </section>
 
             </section>
