@@ -12,13 +12,19 @@ import DropDown from '../menu/DropDown';
 @inject("menu", "weather") @observer
 class Menu extends Component {
 
+    constructor(props) {
+        super(props);
+        this.isPressed = this.isPressed.bind(this);
+    }
+
     isPressed(event) {
         if (event.target.classList.contains('pop-up')) {
             this.props.menu.popUp = event.target.id;
         }
         else {
-            event.target.classList.add('active');
-            const menuItems = document.querySelectorAll('.menu a');
+            if (event.target !== $('#logo'))
+                event.target.classList.add('active');
+            const menuItems = document.querySelectorAll('header a');
             for (let i = 0; i < menuItems.length; i++) {
                 if (menuItems[i] !== event.target) {
                     menuItems[i].classList.remove('active');
@@ -47,21 +53,21 @@ class Menu extends Component {
             <section>
                 <header>
                     <section className="logo">
-                        <Link to="/">WN</Link>
+                        <Link id="logo" onClick={this.isPressed} to="/">WN</Link>
                     </section>
                     <section className="menu">
                         {this.props.weather.isWeather && <DropDown /> }
                         <nav>
-                            <Link onClick={this.isPressed.bind(this)} to="/weather">weather</Link>
-                            <Link onClick={this.isPressed.bind(this)} to="/news">news</Link>
-                            <Link onClick={this.isPressed.bind(this)} to="/about">about</Link>
+                            <Link onClick={this.isPressed} to="/weather">weather</Link>
+                            <Link onClick={this.isPressed} to="/news">news</Link>
+                            <Link onClick={this.isPressed} to="/about">about</Link>
                         </nav>
 
                         {
                             !this.props.user.isAuthenticated &&
                             <section>
-                                <a onClick={this.isPressed.bind(this)} className="pop-up" id="signUp">sign up</a>
-                                <a onClick={this.isPressed.bind(this)} className="pop-up" id="signIn">sign in</a>
+                                <a onClick={this.isPressed} className="pop-up" id="signUp">sign up</a>
+                                <a onClick={this.isPressed} className="pop-up" id="signIn">sign in</a>
                             </section>
                         }
                         { this.props.user.isAuthenticated && <MenuIcon class="menu-icon"/> }
