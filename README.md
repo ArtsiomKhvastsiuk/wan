@@ -22,4 +22,4 @@ This mode works only with mongodb on the default port (27017)<br>
 [Install MongoDB Community Edition](https://docs.mongodb.com/manual/administration/install-community/ "Install MongoDB Community Edition")
 
 ### `Warning`
-The dev server send requests to the server on the port 3001 so you need to switch it on to avoid errors.
+The dev server sends requests to the server on the port 3001 so you need to switch it on to avoid errors.
