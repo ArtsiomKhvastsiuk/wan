@@ -1,4 +1,4 @@
-> Express, Passport, MongoDB, Google OAuth, React
+> Express, Passport, MongoDB, Google OAuth, React, Mobx
 
 Starting:
 ```

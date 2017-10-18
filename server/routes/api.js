@@ -1,8 +1,11 @@
 const express = require('express');
 const passport = require('passport');
+const parseString = require('xml2js').parseString;
 
 const controller = require('../controllers/auth');
 const authhelper = require('../helpers/authhelper');
+const parser = require('../controllers/parser');
+const options = require('../helpers/domens');
 
 const User = require('../models/user');
 
@@ -53,6 +56,21 @@ api.post('/check-username', (req, res) => {
         .catch((error) => {
             return res.json({error: error});
         })
+});
+
+api.get('/parse-habr', (req, res) => {
+    parser.getXml(options.habrahabr, (error, data) => {
+        if (error) {
+            res.json({error});
+        }
+
+        parseString(data, (error, result) => {
+            if (error) {
+                res.json({error});
+            }
+            return res.json(result);
+        });
+    });
 });
 
 api.get('/logout', (req, res) => {
