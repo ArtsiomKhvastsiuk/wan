@@ -4,6 +4,7 @@ import Auth from '../authentication/Auth.js';
 import Register from '../register/Register.js';
 import * as $ from 'jquery';
 import {inject, observer} from 'mobx-react';
+import {withRouter} from 'react-router-dom';
 
 @inject ("user", "menu", "weather") @observer
 
@@ -26,20 +27,21 @@ class News extends Component {
                     this.props.user.isAuthenticated = false;
                 })
                 .fail((error) => {
-                    window.location = 'http://localhost:3001/error';
+                    this.props.history.push('/error');
                 })
         }
 
-        let articles = [];
-        $.ajax({
-            type: 'GET',
-            url: 'http://localhost:3001/api/news',
-            dataType: 'json',
-            contentType: 'application/json',
-            success: (data) => {
-                alert(data.text)
-            }
-        })
+        $.get('http://localhost:3001/api/parse-habr')
+            .done(res => {
+              if (res.status) {
+                  console.log(res.title, res.parsed);
+              } else {
+                  throw new Error(res.message);
+              }
+            })
+            .fail(error => {
+                this.props.history.push('/error');
+            });
     }
 
     componentDidMount() {
@@ -69,5 +71,5 @@ class News extends Component {
     }
 }
 
-export default News;
+export default withRouter(News);
 

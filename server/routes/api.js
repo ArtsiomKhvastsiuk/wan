@@ -1,11 +1,9 @@
 const express = require('express');
 const passport = require('passport');
-const parseString = require('xml2js').parseString;
+const parser = require('rss-parser');
 
 const controller = require('../controllers/auth');
 const authhelper = require('../helpers/authhelper');
-const parser = require('../controllers/parser');
-const options = require('../helpers/domens');
 
 const User = require('../models/user');
 
@@ -59,17 +57,11 @@ api.post('/check-username', (req, res) => {
 });
 
 api.get('/parse-habr', (req, res) => {
-    parser.getXml(options.habrahabr, (error, data) => {
-        if (error) {
-            res.json({error});
+    parser.parseURL('https://nes.tut.by/rss/index.rss', (err, parsed) => {
+        if (err) {
+            return res.json({result: false, message: err.message});
         }
-
-        parseString(data, (error, result) => {
-            if (error) {
-                res.json({error});
-            }
-            return res.json(result);
-        });
+        return res.json({status: true, title: parsed.feed.title, parsed});
     });
 });
 
