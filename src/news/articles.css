@@ -1,0 +1,62 @@
+.article p {
+    margin: 0;
+}
+
+.article {
+    text-transform: none;
+    letter-spacing: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-family: "Helvetica Neue", Roboto, "Segoe UI", Calibri, sans-serif;
+    border-color: #eee #ddd #bbb;
+    border-radius: 5px;
+    border-style: solid;
+    border-width: 1px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+    margin: 15px 15px;
+    padding: 18px 25px;
+    width: 40%;
+    height: 150px;
+    background-color: #fff;
+}
+
+.news h1 {
+    font-family: PTSans-Bold;
+    font-size: 25px;
+    text-align: center;
+    margin: 15px 0 30px 0;
+}
+
+.articles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.article-title {
+    font-family: 'PTSans-Bold';
+    font-size: 20px;
+}
+
+.article-text {
+    font-size: 16px;
+    color: #4f4f4f;
+}
+
+.article-date {
+    align-self: flex-start;
+    font-size: 16px;
+    color: #a7a7a7;
+}
+
+.article:hover {
+    background-color: #ffd200;
+
+}
+
+.article:hover p {
+    color: #fff;
+}
+
+

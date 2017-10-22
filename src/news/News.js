@@ -6,7 +6,7 @@ import * as $ from 'jquery';
 import {inject, observer} from 'mobx-react';
 import {withRouter} from 'react-router-dom';
 
-@inject ("user", "menu", "weather") @observer
+@inject("user", "menu", "weather") @observer
 
 class News extends Component {
     constructor(props) {
@@ -33,11 +33,13 @@ class News extends Component {
 
         $.get('http://localhost:3001/api/parse-habr')
             .done(res => {
-              if (res.status) {
-                  console.log(res.title, res.parsed);
-              } else {
-                  throw new Error(res.message);
-              }
+                if (res.status) {
+                    this.setState({
+                        articles: res.parsed.entries
+                    });
+                } else {
+                    throw new Error(res.message);
+                }
             })
             .fail(error => {
                 this.props.history.push('/error');
@@ -57,16 +59,20 @@ class News extends Component {
     render() {
         const articles = this.state.articles;
         return (
-            <section>
-                {
-                    articles.map((item, index) => {
-                        return <Article key={index} resourse={item.resource} date={item.date}
-                                        title={item.title} description={item.description}/>
-                    })
-                }
-                { this.props.menu.popUp==='signIn' && <Auth />}
-                { this.props.menu.popUp==='signUp' && <Register />}
+            <section className="news">
+                <h1>Habrahabr news</h1>
+                <section className="articles">
+                    {
+                        articles.map((item, index) => {
+                            return <Article key={index} date={item.pubDate}
+                                            title={item.title} description={item.content} link={item.link}/>
+                        })
+                    }
+                    { this.props.menu.popUp === 'signIn' && <Auth />}
+                    { this.props.menu.popUp === 'signUp' && <Register />}
+                </section>
             </section>
+
         )
     }
 }

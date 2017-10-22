@@ -57,11 +57,11 @@ api.post('/check-username', (req, res) => {
 });
 
 api.get('/parse-habr', (req, res) => {
-    parser.parseURL('https://nes.tut.by/rss/index.rss', (err, parsed) => {
+    parser.parseURL('https://habrahabr.ru/rss/interesting/', (err, parsed) => {
         if (err) {
-            return res.json({result: false, message: err.message});
+            return res.json({status: false, message: err.message});
         }
-        return res.json({status: true, title: parsed.feed.title, parsed});
+        return res.json({status: true, parsed: parsed.feed});
     });
 });
 
